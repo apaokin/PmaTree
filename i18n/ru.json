@@ -1,0 +1,22 @@
+{
+	"pmatree": "суscsc статистика",
+	"myextension-desc": "Adds the MyExtension functionality.",
+	"myextension-summary": "On this special page, do this simple thing and earn wonders.",
+	"algowikistats-articles": "Страницы на русском языке",
+	"algowikistats-pages-with-cat": "Страницы с выставленной категорией",
+	"algowikistats-pages-without-cat": "Страницы без выставленной категории",
+	"algowikistats-articles-en": "Страницы на английском языке",
+	"algowikistats-completeness": "Готовность статей",
+	"algowikistats-users-count": "Количество участников",
+	"algowikistats-users": "Участники",
+	"algowikistats-users-counteditors": "Количество участников, сделавших хотя бы одну правку",
+	"algowikistats-pages-count": "Количество страниц",
+	"algowikistats-articles-started": "Начатые статьи",
+	"algowikistats-articles-in-proccess": "Статьи в работе",
+	"algowikistats-articles-fininshed": "Законченные статьи",
+	"algowikistats-levels": "Уровни классификации",
+	"algowikistats-articles-a": "Уровень алгоритма",
+	"algowikistats-articles-t": "Уровень задачи ",
+	"algowikistats-articles-m": "Уровень метода"
+
+}

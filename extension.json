@@ -1,0 +1,28 @@
+{
+	"name": "PmaTree",
+	"version": "0.0.0",
+	"author": [
+		"Andrei Paokin"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:MyExtension",
+	"descriptionmsg": "algosdwdwwdtats-desc",
+	"license-name": "MIT",
+	"type": "SpecialPage",
+	"AutoloadClasses": {
+		"SpecialPmaTree": "SpecialPmaTree.php",
+		"PmaTreeHooks": "PmaTreeHooks.php"
+
+	},
+	"ExtensionMessagesFiles": {
+		"PmaTreeAlias": "i18n/PmaTree.i18n.alias.php"
+	},
+	"MessagesDirs": {
+		"PmaTree": [
+			"i18n"
+		]
+	},
+	"Hooks": {
+		"ArticleViewHeader": "PmaTreeHooks::onArticleViewHeader"
+	},
+	"manifest_version": 1
+}
