@@ -1,0 +1,10 @@
+en_page_title,ru_page_title,top53_id
+Single Source Shortest Path (SSSP),Поиск кратчайшего пути от одной вершины (SSSP),29
+Dijkstra's algorithm,Алгоритм Дейкстры,5
+Bellman-Ford algorithm,Алгоритм Беллмана-Форда,6
+Δ-stepping algorithm,Алгоритм Δ-шагания,2
+Breadth-first search (BFS),Поиск в ширину (BFS),4
+Graph connectivity,Связность в графах,33
+Construction of the minimum spanning tree (MST),Построение минимального остовного дерева (MST),32
+Boruvka's algorithm,Алгоритм Борувки,8
+Shiloach-Vishkin algorithm for finding the connected components,Алгоритм Шилоаха-Вишкина поиска компонент связности,34

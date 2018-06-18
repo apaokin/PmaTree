@@ -10,7 +10,8 @@
 	"type": "SpecialPage",
 	"AutoloadClasses": {
 		"SpecialPmaTree": "SpecialPmaTree.php",
-		"PmaTreeHooks": "PmaTreeHooks.php"
+		"PmaTreeHooks": "PmaTreeHooks.php",
+		"Sync": "Sync.php"
 
 	},
 	"ExtensionMessagesFiles": {
@@ -22,7 +23,9 @@
 		]
 	},
 	"Hooks": {
-		"ArticleViewHeader": "PmaTreeHooks::onArticleViewHeader"
+		"ParserFirstCallInit": "PmaTreeHooks::onParserSetup",
+		"ArticleViewHeader": "PmaTreeHooks::onArticleViewHeader",
+		"LoadExtensionSchemaUpdates": "PmaTreeHooks::onLoadExtensionSchemaUpdates"
 	},
 	"manifest_version": 1
 }
