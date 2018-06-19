@@ -4,7 +4,7 @@ class Sync {
 	var $counterEn;
 	var $output;
   public static function dbr(){
-    return wfGetDB( DB_MASTER);
+    return wfGetDB( DB_MASTER,[],'algowiki_ru');
   }
 
   public static function dbrEn(){
@@ -65,10 +65,5 @@ class Sync {
     Self::dbr() ->insert('pma_tree_sync',array('eng_page_id' => $enId,
                                                'ru_page_id' => $ruId,
                                                 'top53_id' => $top53Id));
-  }
-
-
-  function execute( $par ) {
-
   }
 }

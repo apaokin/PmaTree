@@ -44,9 +44,9 @@ class PmaTreeHooks{
         foreach($categories as $cat)
         {
           $link = NULL;
-          if($cat == 'Category:Problem level‏‎'){
+          if(Self::compare($cat, 'Category:Problem level‏‎')){
             $link = 'http://top53.parallel.ru/algo_results/task/' . $top53_id;
-          }elseif($cat == 'Category:Algorithm level‏‎'){
+          }elseif(Self::compare($cat, 'Category:Algorithm level‏‎')){
             $link = 'http://top53.parallel.ru/algo_results/algorithm/' . $top53_id;
           }
           if ($link){
@@ -93,9 +93,10 @@ class PmaTreeHooks{
         foreach($categories as $cat)
         {
           $link = NULL;
-          if($cat == 'Category:Problem level‏‎'){
+
+          if(Self::compare($cat, 'Category:Problem level‏‎')){
             $link = 'http://top53.parallel.ru/algo_results/task/' . $top53_id;
-          }elseif($cat == 'Category:Algorithm level‏‎'){
+          }elseif(Self::compare($cat, 'Category:Algorithm level‏‎')){
             $link = 'http://top53.parallel.ru/algo_results/algorithm/' . $top53_id;
           }
           if ($link){
@@ -104,5 +105,16 @@ class PmaTreeHooks{
         }
       }
     }
+  }
+  public static function compare($asci,$utf)
+  {
+    for ($i=0;$i < strlen($asci);$i++)
+    {
+      if(substr($asci,$i,1) != mb_substr($utf,$i,1))
+      {
+        return false;
+      }
+    }
+    return true;
   }
 }

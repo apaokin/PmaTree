@@ -1,7 +1,7 @@
 <?php
 $basePath = getenv( 'MW_INSTALL_PATH' ) !== false ? getenv( 'MW_INSTALL_PATH' ) : '/var/www/algowiki/ru' ;
 require_once $basePath . '/maintenance/Maintenance.php';
-class HelloWorld extends Maintenance {
+class PmaUpdater extends Maintenance {
 
 	public function addUndescores($arg) {
 		return str_replace(" ", "_", $arg);
@@ -23,5 +23,5 @@ class HelloWorld extends Maintenance {
 	}
 
 }
-$maintClass = HelloWorld::class;
+$maintClass = PmaUpdater::class;
 require_once RUN_MAINTENANCE_IF_MAIN;
