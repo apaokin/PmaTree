@@ -6,6 +6,10 @@ class PmaTreeHooks{
   public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
     $updater->addExtensionTable( 'pma_tree_sync',
   		__DIR__ . '/sql/pma_tree_sync_table_create_table.sql' );
+    $updater->addExtensionTable( 'pma_tree_pma',
+  		__DIR__ . '/sql/pma_tree_pma_create_table.sql' );
+    $updater->addExtensionTable( 'pma_tree_links',
+  		__DIR__ . '/sql/pma_tree_links_create_table.sql' );
     return true;
   }
 

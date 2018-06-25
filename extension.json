@@ -11,8 +11,11 @@
 	"AutoloadClasses": {
 		"SpecialPmaTree": "SpecialPmaTree.php",
 		"PmaTreeHooks": "PmaTreeHooks.php",
-		"Sync": "Sync.php"
-
+		"Sync": "Sync.php",
+		"Pma": "Pma.php"
+	},
+	"SpecialPages": {
+		"PmaTree": "SpecialPmaTree"
 	},
 	"ExtensionMessagesFiles": {
 		"PmaTreeAlias": "i18n/PmaTree.i18n.alias.php"

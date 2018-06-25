@@ -44,7 +44,7 @@ class Sync {
             __METHOD__
           );
     if(!$res){
-      throw new Exception('No page with title:'.$title);
+      return NULL;
     }
     return $res;
   }

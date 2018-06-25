@@ -1,4 +1,4 @@
-<?php
+z<?php
 $basePath = getenv( 'MW_INSTALL_PATH' ) !== false ? getenv( 'MW_INSTALL_PATH' ) : '/var/www/algowiki/ru' ;
 require_once $basePath . '/maintenance/Maintenance.php';
 class PmaUpdater extends Maintenance {

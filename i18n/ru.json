@@ -1,5 +1,5 @@
 {
-	"pmatree": "суscsc статистика",
+	"pmatree": "Классификация алгоритмов (тестовый режим)",
 	"myextension-desc": "Adds the MyExtension functionality.",
 	"myextension-summary": "On this special page, do this simple thing and earn wonders.",
 	"algowikistats-articles": "Страницы на русском языке",
@@ -18,5 +18,4 @@
 	"algowikistats-articles-a": "Уровень алгоритма",
 	"algowikistats-articles-t": "Уровень задачи ",
 	"algowikistats-articles-m": "Уровень метода"
-
 }

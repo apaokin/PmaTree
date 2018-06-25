@@ -1,0 +1,278 @@
+= Linear algebra problems =
+
+==Matrix and vector operations==
+===Vector operations===
+# {{level|Pairwise summation}}
+## {{level|Pairwise summation of numbers}}
+## {{level|Parallel prefix scan algorithm using pairwise summation}}
+# {{level|Uniform norm of a vector: Real version, serial-parallel variant}}
+# {{level|Dot product}}
+# {{level|The serial-parallel summation method}}
+=== Matrix-vector operations ===
+==== Multiplying a nonsingular matrix by a vector ====
+# {{level|Dense matrix-vector multiplication}}
+==== Multiplying a matrix of special form by a vector ====
+# {{level|Fourier transform}}
+## {{level|Fast Fourier transform for composite dimension}}
+### {{level|Fast Fourier transform for powers-of-two}}
+#### {{level|Cooley–Tukey Fast Fourier Transform, radix-2 case}}
+#### {{level|Fast Fourier transform for even powers-of-two}}
+### {{level|Fast Fourier transform for composite dimension with small prime divisors (2,3,5,7)}}
+## {{level|Fast Fourier transform for prime dimension}}
+===Matrix operations===
+# {{level|Dense matrix multiplication}}
+## {{level|Dense matrix multiplication (serial version for real matrices)}}
+## {{level|Strassen's algorithm}}
+
+==Matrix decompositions==
+{{level|Matrix decomposition problem}}
+# {{level|Triangular decompositions}}
+## {{level|Gaussian elimination (finding the LU decomposition)}}
+### {{level|LU decomposition using Gaussian elimination without pivoting}}
+#### {{level|LU decomposition via Gaussian elimination}}
+#### {{level|Gaussian elimination, compact scheme for tridiagonal matrices and its modifications}}
+##### {{level|Compact scheme for Gaussian elimination: Dense matrix}}
+##### {{level|Compact scheme for Gaussian elimination and its modifications: Tridiagonal matrix}}
+###### {{level|Gaussian elimination, compact scheme for tridiagonal matrices, serial version}}
+###### {{level|Stone doubling algorithm for the LU decomposition of a tridiagonal matrix}}
+###### {{level|Serial-parallel algorithm for the LU decomposition of a tridiagonal matrix}}
+### {{level|LU decomposition using Gaussian elimination with pivoting}}
+#### {{level|Gaussian elimination with column pivoting}}
+#### {{level|Gaussian elimination with row pivoting}}
+#### {{level|Gaussian elimination with diagonal pivoting}}
+#### {{level|Gaussian elimination with complete pivoting}}
+## {{level|Cholesky method}}
+### {{level|Cholesky decomposition}}
+# {{level|Available triangular decompositions for matrices of special form}}
+# {{level|Unitary-triangular factorizations}}
+## {{level|QR decomposition of dense nonsingular matrices}}
+### {{level|Givens (rotations) method for the QR decomposition of a matrix}}
+#### {{level|Givens method}}
+### {{level|Householder (reflections) method for the QR decomposition of a matrix}}
+#### {{level|Householder (reflections) method for the QR decomposition of a square matrix, real point-wise version}}
+### {{level|Orthogonalization method}}
+#### {{level|Classical orthogonalization method}}
+#### {{level|Orthogonalization method with reorthogonalization}}
+### {{level|Triangular decomposition of a Gram matrix}}
+## {{level|QR decomposition methods for dense Hessenberg matrices}}
+### {{level|Givens (rotations) method for the QR decomposition of a (real) Hessenberg matrix}}
+### {{level|Householder (reflections) method for the QR decomposition of a (real) Hessenberg matrix}}
+# {{level|Reducing matrices to compact forms}}
+## {{level|Unitary reductions to Hessenberg form}}
+### {{level|Householder (reflections) method for reducing of a matrix to Hessenberg form}}
+#### {{level|Classical point-wise Householder (reflections) method for reducing a matrix to Hessenberg form}}
+### {{level|Givens (rotations) method for reducing a matrix to Hessenberg form}}
+#### {{level|Classical point-wise Givens (rotations) method for reducing a matrix to Hessenberg form}}
+## {{level|Unitary reductions to tridiagonal form}}
+### {{level|Householder (reflections) method for reducing to tridiagonal form}}
+#### {{level|Householder (reflections) method for reducing a symmetric matrix to tridiagonal form}}
+#### {{level|Householder (reflections) method for reducing a complex Hermitian matrix to symmetric tridiagonal form}}
+### {{level|Givens (rotations) reduction to tridiagonal form}}
+## {{level|Eigenvalue decomposition (finding eigenvalues and eigenvectors)}}
+# {{level|Unitary non-similarity reductions to compact forms}}
+## {{level|Unitary reduction to bidiagonal form}}
+### {{level|Householder (reflections) reduction of a matrix to bidiagonal form}}
+### {{level|Givens (rotations) reduction of a matrix to bidiagonal form}}
+## {{level|Singular value decomposition}}
+### {{level|Singular value decomposition (finding singular values and singular vectors)}}
+#### {{level|Methods for calculating singular values of bidiagonal matrices}}
+##### {{level|The dqds algorithm for calculating singular values of bidiagonal matrices}}
+###### {{level|One step of the dqds algorithm}}
+
+==Solving systems of linear algebraic  equations==
+# {{level|Direct methods}}
+## {{level|Linpack benchmark}}
+## {{level|Matrices of a special form}}
+### {{level|Triangular matrices}}
+#### {{level|Forward substitution}}
+#### {{level|Backward substitution}}
+#### {{level|Bidiagonal matrices}}
+##### {{level|Forward and backward substitution for bidiagonal matrices}}
+##### {{level|Stone doubling algorithm for solving bidiagonal SLAEs}}
+##### {{level|Serial-parallel variant of the backward substitution}}
+### {{level|Methods for solving tridiagonal SLAEs}}
+#### {{level|Methods based on the conventional LU decomposition}}
+##### {{level|Thomas algorithm}}
+###### {{level|Thomas algorithm, pointwise version}}
+###### {{level|Repeated Thomas algorithm, pointwise version}}
+##### {{level|Stone doubling algorithm}}
+###### {{level|Stone doubling algorithm for the LU decomposition of tridiagonal matrices}}
+###### {{level|Stone doubling algorithm for solving bidiagonal SLAEs}}
+##### {{level|Serial-parallel method for solving tridiagonal matrices based on the LU decomposition and backward substitutions}}
+#### Other methods
+##### {{level|Reduction method}}
+###### {{level|Complete reduction method}}
+###### {{level|Reduction method repeated for a new right-hand side}}
+##### {{level|Two-sided Thomas algorithm }}
+###### {{level|Two-sided Thomas algorithm, pointwise version}}
+###### {{level|Repeated two-sided Thomas algorithm, pointwise version}}
+##### {{level|Cyclic reduction}}
+###### {{level|Complete cyclic reduction}}
+###### {{level|Cyclic reduction repeated for a new right-hand side}}
+##### {{level|Bordering method}}
+### Methods for solving block triangular matrices
+#### {{level|Block forward substitution (real version)}}
+#### {{level|Block backward substitution (real version)}}
+#### Methods for solving block bidiagonal matrices
+##### {{level|Forward and backward substitution for block bidiagonal matrices}}
+##### {{level|Stone doubling algorithm for solving block bidiagonal matrices}}
+##### {{level|Serial-parallel variant of the block backward substitution for solving block bidiagonal matrices}}
+### {{level|Methods for solving block tridiagonal matrices}}
+#### Methods based on the conventional LU decomposition
+##### {{level|Block Thomas algorithm}}
+##### {{level|Serial-parallel method for solving block systems of linear algebraic equations based on the LU decomposition and backward substitutions}}
+#### Other methods
+##### {{level|Two-sided Thomas algorithm, block variant}}
+##### {{level|Block cyclic reduction}}
+##### {{level|Block bordering method}}
+## {{level|Solving systems of linear algebraic equations with coefficient matrices of special form whose inverses are known}}
+# Iterative methods for solving systems of linear algebraic equations
+## {{level|High Performance Conjugate Gradient (HPCG) benchmark}}
+## {{level|Biconjugate gradient stabilized method (BiCGStab)}}
+## {{level|Kaczmarz's algorithm}}
+
+==Solving eigenvalue problems==
+# {{level|Eigenvalue decomposition (finding eigenvalues and eigenvectors)}}
+## {{level|QR algorithm}}
+### {{level|QR algorithm as implemented in SCALAPACK}}
+#### {{level|Classical point-wise Householder (reflections) method for reducing a matrix to Hessenberg form}}
+#### {{level|Hessenberg QR algorithm as implemented in SCALAPACK}}
+### {{level|Symmetric QR algorithm as implemented in SCALAPACK}}
+#### {{level|Householder (reflections) method for reducing a symmetric matrix to tridiagonal form}}
+#### {{level|Symmetric tridiagonal QR algorithm as implemented in SCALAPACK}}
+### {{level|QR algorithm for complex Hermitian matrices as implemented in SCALAPACK}}
+#### {{level|Householder (reflections) method for reducing a complex Hermitian matrix to symmetric tridiagonal form}}
+#### {{level|Symmetric tridiagonal QR algorithm as implemented in SCALAPACK}}
+## {{level|The Jacobi (rotations) method for solving the symmetric eigenvalue problem}}
+### {{level|The classical Jacobi (rotations) method with pivoting for symmetric matrices}}
+### {{level|Serial Jacobi (rotations) method for symmetric matrices}}
+### {{level|Serial Jacobi (rotations) method with thresholds for symmetric matrices}}
+## {{level|Lanczos algorithm}}
+### {{level|Lanczos algorithm in exact algorithm (without reorthogonalization)}}
+# {{level|Partial eigenvalue problem}}
+## {{level|Method of bisection}}
+# {{level|Singular value decomposition (finding singular values and singular vectors)}}
+## {{level|Jacobi (rotations) method for finding singular values}}
+### {{level|Serial Jacobi (rotations) method for finding singular values}}
+### {{level|Jacobi method with a special choice of rotations for finding singular values}}
+## {{level|QR algorithm as applied to singular value decomposition алгоритм}}
+
+==Algebra of polynomials==
+# {{level|Horners method}}
+
+= Algorithms on lists and arrays =
+
+==Search algorithms==
+# {{level|Linear search: Finding an item in an arbitrary list|Linear search}}, <math>O(n)</math>
+# {{level|Binary search: Finding the position of a target value within a sorted array}}, <math>O(\log(n))</math>
+
+==Sorting algorithms==
+# {{level|Binary tree sort}}
+# {{level|Bubble sort}}
+# {{level|Merge sort (serial and parallel variants)}}
+
+==Graph algorithms==
+# Graph traversal
+## {{level|Breadth-first search (BFS)}}
+## {{level|Depth-first search (DFS)}}
+# {{level|Single Source Shortest Path (SSSP)}}
+## {{level|Breadth-first search (BFS)}} (for unweighted graphs)
+## {{level|Dijkstra's algorithm}}
+## {{level|Bellman-Ford algorithm}}
+## {{level|Δ-stepping algorithm}}
+# {{level|All Pairs Shortest Path (APSP)}}
+## {{level|Johnson's algorithm}}
+## {{level|Floyd-Warshall algorithm}}
+# {{level|Transitive closure of a directed graph}}
+## {{level|Purdom's algorithm}}
+# {{level|Longest shortest path}}
+# {{level|Construction of the minimum spanning tree (MST)}}
+## {{level|Boruvka's algorithm}}
+## {{level|Kruskal's algorithm}}
+## {{level|Prim's algorithm}}
+## {{level|GHS algorithm}}
+# {{level|Search for isomorphic subgraphs}}
+## {{level|Ullman's algorithm}}
+## {{level|VF2 algorithm}}
+# {{level|Graph connectivity}}
+## {{level|Shiloach-Vishkin algorithm for finding the connected components}}
+## {{level|Disjoint set union}}
+## {{level|Tarjan's strongly connected components algorithm}}
+## {{level|DCSC algorithm for finding the strongly connected components}}
+## {{level|Tarjan's biconnected components algorithm}}
+## {{level|Tarjan-Vishkin biconnected components algorithm}}
+## {{level|Tarjan's algorithm for finding the bridges of a graph}}
+## {{level|Vertex connectivity of a graph}}
+## {{level|Gabow's edge connectivity algorithm}}
+# {{level|Finding maximal flow in a transportation network}}
+## {{level|Ford–Fulkerson algorithm}}
+## {{level|Preflow-Push algorithm}}
+# {{level|Finding minimal-cost flow in a transportation network}}
+# {{level|Assignment problem}}
+## {{level|Hungarian algorithm}}
+## {{level|Auction algorithm}}
+## {{level|Hopcroft–Karp algorithm}}
+# {{level|Betweenness centrality algorithm}}
+
+=Computational geometry=
+# {{level|Finding the diameter of a point set}}
+# {{level|Finding the convex hull of a point set}}
+# {{level|Delaunay triangulation}}
+# {{level|Voronoi diagram}}
+# {{level|Point-in-polygon problem}}
+# {{level|Convex polygon intersection}}
+# {{level|Star-shaped polygon intersection}}
+
+==Computer graphics==
+# {{level|Line drawing algorithms: Approximating a line segment on discrete graphical media}}
+# {{level|Determining visible parts of a three-dimensional scene}}
+# {{level|Ray tracing: Rendering realistic images}}
+# {{level|Global illumination: Regarding direct illumination and reflection from other objects}}
+
+=Computer analysis and modeling=
+
+==Computer benchmarks==
+# {{level|High Performance Conjugate Gradient (HPCG) benchmark}}
+# {{level|Linpack benchmark}}
+
+==Algorithms of quantum system simulation==
+# {{level|Algorithms of quantum computation simulation}}
+## {{level|Single-qubit transform of a state vector}}
+## {{level|Two-qubit transform of a state vector}}
+## {{level|Quantum Fourier transform simulation}}
+
+==Machine learning algorithms==
+# {{level|k-means clustering}}
+
+===Neural networks===
+# {{level|Pattern recognition}}
+## {{level|Text recognition}}
+## {{level|Speech recognition}}
+## {{level|Face recognition}}
+
+===Game theory algorithms===
+
+= Miscellaneous applied problems =
+
+==Optimization algorithms==
+# {{level|Linear programming}}
+# {{level|Simplex algorithm}}
+# {{level|Branch and bound method}}
+# {{level|Genetic algorithms}}
+# {{level|Ant colony algorithms}}
+# {{level|Hybrid algorithms}}
+# {{level|Stochastic dual dynamic programming (SDDP)}}
+
+==Solving systems of nonlinear equations==
+# {{level|Newton's method for systems of nonlinear equations}}
+
+==Numerical quadrature==
+# {{level|Cubature rules}}
+# {{level|Numerical quadrature (cubature) rules on an interval (for a multidimensional cube)}}
+==Algorithms for solving equations of mathematical physics==
+# {{level|Poisson equation, solving with DFT}}
+
+=Cryptographic algorithms=
+# {{level|Meet-in-the-middle attack}}
+
+=Other algorithms=

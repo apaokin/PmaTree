@@ -1,0 +1,256 @@
+line,ru_name,eng_name,without_page,parent
+0,Задачи алгебры,Linear algebra problems,without_page,
+1,Матричные и векторные операции,Matrix and vector operations,without_page,0
+2,Векторные операции,Vector operations,without_page,1
+3,Суммирование сдваиванием,Pairwise summation,false,2
+4,Нахождение суммы элементов массива сдваиванием,Pairwise summation of numbers,false,3
+5,Нахождение частных сумм элементов массива сдваиванием,Parallel prefix scan algorithm using pairwise summation,false,3
+6,"Равномерная норма вектора, вещественная версия, последовательно-параллельный вариант","Uniform norm of a vector: Real version, serial-parallel variant",false,2
+7,"Скалярное произведение векторов, вещественная версия, последовательно-параллельный вариант",Dot product,false,2
+8,Последовательно-параллельный метод суммирования,The serial-parallel summation method,false,2
+9,Умножения матриц на вектор,Matrix-vector operations,without_page,1
+10,Умножения неособенных матриц на вектор,Multiplying a nonsingular matrix by a vector,without_page,9
+11,Умножение плотной неособенной матрицы на вектор (последовательный вещественный вариант),Dense matrix-vector multiplication,false,10
+12,Умножения матриц специального вида на вектор,Multiplying a matrix of special form by a vector,without_page,9
+13,Преобразование Фурье,Fourier transform,false,12
+14,Быстрое преобразование Фурье для составной размерности,Fast Fourier transform for composite dimension,false,13
+15,Быстрое преобразование Фурье для степеней двойки,Fast Fourier transform for powers-of-two,false,14
+16,Простой алгоритм Кули-Тьюки быстрого преобразования Фурье для степеней двойки,"Cooley–Tukey Fast Fourier Transform, radix-2 case",false,15
+17,Быстрое преобразование Фурье для чётных степеней двойки,Fast Fourier transform for even powers-of-two,false,15
+18,"Быстрое преобразование Фурье для составной размерности с небольшими простыми делителями (2,3,5,7)","Fast Fourier transform for composite dimension with small prime divisors (2,3,5,7)",false,14
+19,Быстрое преобразование Фурье для простой размерности,Fast Fourier transform for prime dimension,false,13
+20,Матричные операции,Matrix operations,without_page,1
+21,Умножение плотных матриц,Dense matrix multiplication,false,20
+22,Перемножение плотных неособенных матриц (последовательный вещественный вариант),Dense matrix multiplication (serial version for real matrices),false,21
+23,Метод Штрассена,Strassen's algorithm,false,21
+24,Разложения матриц,Matrix decompositions,without_page,0
+25,Задача разложения матриц,Matrix decomposition problem,false,24
+26,Треугольные разложения,Triangular decompositions,false,24
+27,Метод Гаусса (нахождение LU-разложения),Gaussian elimination (finding the LU decomposition),false,26
+28,LU-разложение методом Гаусса без перестановок,LU decomposition using Gaussian elimination without pivoting,false,27
+29,LU-разложение методом Гаусса,LU decomposition via Gaussian elimination,false,28
+30,Компактная схема метода Гаусса и её модификации,"Gaussian elimination, compact scheme for tridiagonal matrices and its modifications",false,28
+31,Компактная схема метода Гаусса для плотной матрицы,Compact scheme for Gaussian elimination: Dense matrix,false,30
+32,Компактная схема метода Гаусса для трёхдиагональной матрицы и её модификации,Compact scheme for Gaussian elimination and its modifications: Tridiagonal matrix,false,30
+33,"Компактная схема метода Гаусса для трёхдиагональной матрицы, последовательный вариант","Gaussian elimination, compact scheme for tridiagonal matrices, serial version",false,32
+34,Алгоритм сдваивания Стоуна для LU-разложения трёхдиагональной матрицы,Stone doubling algorithm for the LU decomposition of a tridiagonal matrix,false,32
+35,Последовательно-параллельный алгоритм для LU-разложения трёхдиагональной матрицы,Serial-parallel algorithm for the LU decomposition of a tridiagonal matrix,false,32
+36,LU-разложение методом Гаусса с перестановками,LU decomposition using Gaussian elimination with pivoting,false,27
+37,LU-разложение методом Гаусса с выбором ведущего элемента по столбцу,Gaussian elimination with column pivoting,false,36
+38,LU-разложение методом Гаусса с выбором ведущего элемента по строке,Gaussian elimination with row pivoting,false,36
+39,LU-разложение методом Гаусса с выбором ведущего элемента по главной диагонали,Gaussian elimination with diagonal pivoting,false,36
+40,LU-разложение методом Гаусса с выбором ведущего элемента по всей матрице,Gaussian elimination with complete pivoting,false,36
+41,Метод Холецкого (нахождение симметричного треугольного разложения),Cholesky method,false,26
+42,Разложение Холецкого (метод квадратного корня),Cholesky decomposition,false,41
+43,Известные треугольные разложения для матриц специального вида,Available triangular decompositions for matrices of special form,false,24
+44,Унитарно-треугольные разложения,Unitary-triangular factorizations,false,24
+45,QR-разложения плотных неособенных матриц,QR decomposition of dense nonsingular matrices,false,44
+46,Метод Гивенса (вращений) QR-разложения матрицы,Givens (rotations) method for the QR decomposition of a matrix,false,45
+47,Метод Гивенса (вращений) QR-разложения квадратной матрицы (вещественный точечный вариант),Givens method,false,46
+48,Метод Хаусхолдера (отражений) QR-разложения матрицы,Householder (reflections) method for the QR decomposition of a matrix,false,45
+49,"Метод Хаусхолдера (отражений) QR-разложения квадратной матрицы, вещественный точечный вариант","Householder (reflections) method for the QR decomposition of a square matrix, real point-wise version",false,48
+50,Метод ортогонализации,Orthogonalization method,false,45
+51,Классический метод ортогонализации,Classical orthogonalization method,false,50
+52,Метод ортогонализации с переортогонализацией,Orthogonalization method with reorthogonalization,false,50
+53,Метод треугольного разложения матрицы Грама,Triangular decomposition of a Gram matrix,false,45
+54,Методы QR-разложения плотных хессенберговых матриц,QR decomposition methods for dense Hessenberg matrices,false,44
+55,Метод Гивенса (вращений) QR-разложения хессенберговой матрицы (вещественный вариант),Givens (rotations) method for the QR decomposition of a (real) Hessenberg matrix,false,54
+56,Метод Хаусхолдера (отражений) QR-разложения хессенберговой матрицы (вещественный вариант),Householder (reflections) method for the QR decomposition of a (real) Hessenberg matrix,false,54
+57,"Разложения, содержащие матрицу, подобную исходной",Reducing matrices to compact forms,false,24
+58,"Разложения, содержащие хессенбергову матрицу, унитарно подобную исходной",Unitary reductions to Hessenberg form,false,57
+59,Метод Хаусхолдера (отражений) приведения матрицы к хессенберговой (почти треугольной) форме,Householder (reflections) method for reducing of a matrix to Hessenberg form,false,58
+60,Классический точечный метод Хаусхолдера (отражений) приведения матрицы к хессенберговой (почти треугольной) форме,Classical point-wise Householder (reflections) method for reducing a matrix to Hessenberg form,false,59
+61,Метод Гивенса (вращений) приведения матрицы к хессенберговой (почти треугольной) форме,Givens (rotations) method for reducing a matrix to Hessenberg form,false,58
+62,Классический точечный метод Гивенса (вращений) приведения матрицы к хессенберговой (почти треугольной) форме,Classical point-wise Givens (rotations) method for reducing a matrix to Hessenberg form,false,61
+63,"Разложения, содержащие трёхдиагональную матрицу, унитарно подобную исходной",Unitary reductions to tridiagonal form,false,57
+64,Метод Хаусхолдера (отражений) приведения к трёхдиагональному виду,Householder (reflections) method for reducing to tridiagonal form,false,63
+65,Метод Хаусхолдера (отражений) для приведения симметричных матриц к трёхдиагональному виду,Householder (reflections) method for reducing a symmetric matrix to tridiagonal form,false,64
+66,Метод Хаусхолдера (отражений) для приведения комплексных эрмитовых матриц к трёхдиагональному симметричному виду,Householder (reflections) method for reducing a complex Hermitian matrix to symmetric tridiagonal form,false,64
+67,Метод Гивенса (вращений) приведения матрицы к трёхдиагональной форме,Givens (rotations) reduction to tridiagonal form,false,63
+68,Спектральное разложение (нахождение собственных значений и векторов),Eigenvalue decomposition (finding eigenvalues and eigenvectors),false,57
+69,"Разложения с использованием унитарных преобразований, не содержащие матриц, подобной исходной",Unitary non-similarity reductions to compact forms,false,24
+70,Разложения на две унитарные и одну двухдиагональную матрицы,Unitary reduction to bidiagonal form,false,69
+71,Метод Хаусхолдера (отражений) приведения матрицы к двухдиагональной форме,Householder (reflections) reduction of a matrix to bidiagonal form,false,70
+72,Метод Гивенса (вращений) приведения матрицы к двухдиагональной форме,Givens (rotations) reduction of a matrix to bidiagonal form,false,70
+73,Разложения на две унитарные и одну диагональную матрицы,Singular value decomposition,false,69
+74,Сингулярное разложение (нахождение сингулярных значений и векторов),Singular value decomposition (finding singular values and singular vectors),false,73
+75,Методы нахождения сингулярных чисел двухдиагональных матриц,Methods for calculating singular values of bidiagonal matrices,false,74
+76,Алгоритм dqds нахождения сингулярных чисел двухдиагональной матрицы,The dqds algorithm for calculating singular values of bidiagonal matrices,false,75
+77,Итерация алгоритма dqds,One step of the dqds algorithm,false,76
+78,Решение систем линейных уравнений,Solving systems of linear algebraic  equations,without_page,0
+79,Прямые методы решения СЛАУ,Direct methods,false,78
+80,Linpack benchmark,Linpack benchmark,false,79
+81,Методы решения СЛАУ с матрицами специального вида,Matrices of a special form,false,79
+82,Методы решения СЛАУ с треугольными матрицами,Triangular matrices,false,81
+83,Прямая подстановка (вещественный вариант),Forward substitution,false,82
+84,Обратная подстановка (вещественный вариант),Backward substitution,false,82
+85,Методы решения СЛАУ с двудиагональными матрицами,Bidiagonal matrices,false,82
+86,Прямая и обратная подстановка в СЛАУ с двухдиагональной матрицей,Forward and backward substitution for bidiagonal matrices,false,85
+87,Метод сдваивания Стоуна для решения двудиагональных СЛАУ,Stone doubling algorithm for solving bidiagonal SLAEs,false,85
+88,Последовательно-параллельный вариант обратной подстановки,Serial-parallel variant of the backward substitution,false,85
+89,Методы решения СЛАУ с трёхдиагональными матрицами,Methods for solving tridiagonal SLAEs,false,81
+90,"Методы, основанные на стандартном LU-разложении матрицы",Methods based on the conventional LU decomposition,false,89
+91,Прогонка,Thomas algorithm,false,90
+92,"Прогонка, точечный вариант","Thomas algorithm, pointwise version",false,91
+93,"Классическая монотонная прогонка, повторный вариант","Repeated Thomas algorithm, pointwise version",false,91
+94,Метод сдваивания Стоуна,Stone doubling algorithm,false,90
+95,Алгоритм сдваивания Стоуна для LU-разложения трёхдиагональной матрицы,Stone doubling algorithm for the LU decomposition of tridiagonal matrices,false,94
+96,Метод сдваивания Стоуна для решения двудиагональных СЛАУ,Stone doubling algorithm for solving bidiagonal SLAEs,false,94
+97,Последовательно-параллельный вариант решения трёхдиагональной СЛАУ с LU-разложением и обратными подстановками,Serial-parallel method for solving tridiagonal matrices based on the LU decomposition and backward substitutions,false,90
+98,Другие методы,Other methods,without_page_and_header,89
+99,Метод редукции,Reduction method,false,98
+100,Полный метод редукции,Complete reduction method,false,99
+101,Повторный метод редукции для новой правой части,Reduction method repeated for a new right-hand side,false,99
+102,Встречная прогонка,Two-sided Thomas algorithm,false,98
+103,"Встречная прогонка, точечный вариант","Two-sided Thomas algorithm, pointwise version",false,102
+104,"Повторная встречная прогонка, точечный вариант","Repeated two-sided Thomas algorithm, pointwise version",false,102
+105,Метод циклической редукции,Cyclic reduction,false,98
+106,Полный метод циклической редукции,Complete cyclic reduction,false,105
+107,Повторный метод циклической редукции для новой правой части,Cyclic reduction repeated for a new right-hand side,false,105
+108,Метод окаймления,Bordering method,false,98
+109,Методы решения СЛАУ с блочно-треугольными матрицами,Methods for solving block triangular matrices,without_page_and_header,81
+110,Блочная прямая подстановка,Block forward substitution (real version),false,109
+111,Блочная обратная подстановка,Block backward substitution (real version),false,109
+112,Методы решения СЛАУ с блочно-двухдиагональными матрицами,Methods for solving block bidiagonal matrices,without_page_and_header,109
+113,Прямая и обратная подстановка в СЛАУ с блочно-двухдиагональной матрицей,Forward and backward substitution for block bidiagonal matrices,false,112
+114,Метод сдваивания Стоуна для решения блочно-двухдиагональных СЛАУ,Stone doubling algorithm for solving block bidiagonal matrices,false,112
+115,Блочный последовательно-параллельный вариант обратной подстановки для решения блочно-двухдиагональных СЛАУ,Serial-parallel variant of the block backward substitution for solving block bidiagonal matrices,false,112
+116,Методы решения СЛАУ с блочно-трёхдиагональными матрицами,Methods for solving block tridiagonal matrices,false,81
+117,"Методы, основанные на стандартном LU-разложении матрицы",Methods based on the conventional LU decomposition,without_page_and_header,116
+118,Блочная прогонка,Block Thomas algorithm,false,117
+119,Блочный последовательно-параллельный вариант решения с LU-разложением и обратными подстановками,Serial-parallel method for solving block systems of linear algebraic equations based on the LU decomposition and backward substitutions,false,117
+120,Другие методы,Other methods,without_page_and_header,116
+121,"Встречная прогонка, блочный вариант","Two-sided Thomas algorithm, block variant",false,120
+122,Блочный метод циклической редукции,Block cyclic reduction,false,120
+123,Блочный метод окаймления,Block bordering method,false,120
+124,"Решения СЛАУ с матрицами специального вида, имеющими известные обратные матрицы",Solving systems of linear algebraic equations with coefficient matrices of special form whose inverses are known,false,79
+125,Итерационные методы решения СЛАУ,Iterative methods for solving systems of linear algebraic equations,without_page_and_header,78
+126,High Performance Conjugate Gradient (HPCG) benchmark,High Performance Conjugate Gradient (HPCG) benchmark,false,125
+127,Стабилизированный метод бисопряженных градиентов (BiCGStab),Biconjugate gradient stabilized method (BiCGStab),false,125
+128,Алгоритм_Качмажа,Kaczmarz's algorithm,false,125
+129,Решения спектральных задач,Solving eigenvalue problems,without_page,0
+130,Спектральное разложение (нахождение собственных значений и векторов),Eigenvalue decomposition (finding eigenvalues and eigenvectors),false,129
+131,QR-алгоритм,QR algorithm,false,130
+132,"QR-алгоритм, используемый в SCALAPACK",QR algorithm as implemented in SCALAPACK,false,131
+133,Классический точечный метод Хаусхолдера (отражений) приведения матрицы к хессенберговой (почти треугольной) форме,Classical point-wise Householder (reflections) method for reducing a matrix to Hessenberg form,false,132
+134,"QR-алгоритм для хессенберговой матрицы, используемый в SCALAPACK",Hessenberg QR algorithm as implemented in SCALAPACK,false,132
+135,"QR-алгоритм для симметричных матриц, используемый в SCALAPACK",Symmetric QR algorithm as implemented in SCALAPACK,false,131
+136,Метод Хаусхолдера (отражений) для приведения симметричных матриц к трёхдиагональному виду,Householder (reflections) method for reducing a symmetric matrix to tridiagonal form,false,135
+137,"QR-алгоритм для симметричных трёхдиагональных матриц, используемый в SCALAPACK",Symmetric tridiagonal QR algorithm as implemented in SCALAPACK,false,135
+138,"QR-алгоритм для комплексных эрмитовых матриц, используемый в SCALAPACK",QR algorithm for complex Hermitian matrices as implemented in SCALAPACK,false,131
+139,Метод Хаусхолдера (отражений) для приведения комплексных эрмитовых матриц к трёхдиагональному симметричному виду,Householder (reflections) method for reducing a complex Hermitian matrix to symmetric tridiagonal form,false,138
+140,"QR-алгоритм для симметричных трёхдиагональных матриц, используемый в SCALAPACK",Symmetric tridiagonal QR algorithm as implemented in SCALAPACK,false,138
+141,Метод Якоби (вращений) для решения спектральной задачи у симметричных матриц,The Jacobi (rotations) method for solving the symmetric eigenvalue problem,false,130
+142,Классический метод Якоби (вращений) для симметричных матриц с выбором по всей матрице,The classical Jacobi (rotations) method with pivoting for symmetric matrices,false,141
+143,Метод Якоби (вращений) для симметричных матриц с циклическим исключением,Serial Jacobi (rotations) method for symmetric matrices,false,141
+144,Метод Якоби (вращений) для симметричных матриц с циклическим исключением и барьерами,Serial Jacobi (rotations) method with thresholds for symmetric matrices,false,141
+145,Метод Ланцоша,Lanczos algorithm,false,130
+146,Алгоритм Ланцоша для точной арифметики (без переортогонализации),Lanczos algorithm in exact algorithm (without reorthogonalization),false,145
+147,Частичная спектральная задача,Partial eigenvalue problem,false,129
+148,Метод бисекций,Method of bisection,false,147
+149,Сингулярное разложение (нахождение сингулярных значений и векторов),Singular value decomposition (finding singular values and singular vectors),false,129
+150,Метод Якоби (вращений) для нахождения сингулярных значений неособенных матриц,Jacobi (rotations) method for finding singular values,false,149
+151,Метод Якоби (вращений) для нахождения сингулярных значений с циклическим перебором,Serial Jacobi (rotations) method for finding singular values,false,150
+152,Метод Якоби для нахождения сингулярных значений со специальным подбором вращений,Jacobi method with a special choice of rotations for finding singular values,false,150
+153,QR-алгоритм в приложении к сингулярному разложению,QR algorithm as applied to singular value decomposition алгоритм,false,149
+154,Алгебра многочленов,Algebra of polynomials,without_page,0
+155,"Схема Горнера, вещественная версия, последовательный вариант",Horners method,false,154
+156,Алгоритмы на списках и массивах,Algorithms on lists and arrays,without_page,
+157,Алгоритмы поиска,Search algorithms,without_page,156
+158,Линейный поиск,Linear search,false,157
+159,Двоичный поиск,Binary search: Finding the position of a target value within a sorted array,false,157
+160,Алгоритмы сортировки,Sorting algorithms,without_page,156
+161,Сортировка с помощью двоичного дерева,Binary tree sort,false,160
+162,Сортировка пузырьком,Bubble sort,false,160
+163,Сортировка слиянием (последовательный и параллельный варианты),Merge sort (serial and parallel variants),false,160
+164,Алгоритмы на графах,Graph algorithms,without_page,156
+165,Обход графа,Graph traversal,without_page_and_header,164
+166,Поиск в ширину (BFS),Breadth-first search (BFS),false,165
+167,Поиск в глубину (DFS),Depth-first search (DFS),false,165
+168,Поиск кратчайшего пути от одной вершины (SSSP),Single Source Shortest Path (SSSP),false,164
+169,Поиск в ширину (BFS),Breadth-first search (BFS),false,168
+170,Алгоритм Дейкстры,Dijkstra's algorithm,false,168
+171,Алгоритм Беллмана-Форда,Bellman-Ford algorithm,false,168
+172,Алгоритм Δ-шагания,Δ-stepping algorithm,false,168
+173,Поиск кратчайшего пути для всех пар вершин (APSP),All Pairs Shortest Path (APSP),false,164
+174,Алгоритм Джонсона,Johnson's algorithm,false,173
+175,Алгоритм Флойда-Уоршелла,Floyd-Warshall algorithm,false,173
+176,Поиск транзитивного замыкания орграфа,Transitive closure of a directed graph,false,164
+177,Алгоритм Пурдома,Purdom's algorithm,false,176
+178,Определение диаметра графа,Longest shortest path,false,164
+179,Построение минимального остовного дерева (MST),Construction of the minimum spanning tree (MST),false,164
+180,Алгоритм Борувки,Boruvka's algorithm,false,179
+181,Алгоритм Крускала,Kruskal's algorithm,false,179
+182,Алгоритм Прима,Prim's algorithm,false,179
+183,Алгоритм GHS,GHS algorithm,false,179
+184,Поиск изоморфных подграфов,Search for isomorphic subgraphs,false,164
+185,Алгоритм Ульмана,Ullman's algorithm,false,184
+186,Алгоритм VF2,VF2 algorithm,false,184
+187,Связность в графах,Graph connectivity,false,164
+188,Алгоритм Шилоаха-Вишкина поиска компонент связности,Shiloach-Vishkin algorithm for finding the connected components,false,187
+189,Система непересекающихся множеств,Disjoint set union,false,187
+190,Алгоритм Тарьяна поиска компонент сильной связности,Tarjan's strongly connected components algorithm,false,187
+191,Алгоритм DCSC поиска компонент сильной связности,DCSC algorithm for finding the strongly connected components,false,187
+192,Алгоритм Тарьяна поиска компонент двусвязности,Tarjan's biconnected components algorithm,false,187
+193,Алгоритм Тарьяна-Вишкина поиска компонент двусвязности,Tarjan-Vishkin biconnected components algorithm,false,187
+194,Алгоритм Тарьяна поиска «мостов» в графе,Tarjan's algorithm for finding the bridges of a graph,false,187
+195,Определение вершинной связности графа,Vertex connectivity of a graph,false,187
+196,Алгоритм Габова определения рёберной связности графа,Gabow's edge connectivity algorithm,false,187
+197,Поиск максимального потока в транспортной сети,Finding maximal flow in a transportation network,false,164
+198,Алгоритм Форда-Фалкерсона,Ford–Fulkerson algorithm,false,197
+199,Алгоритм проталкивания предпотока,Preflow-Push algorithm,false,197
+200,Поиск потока минимальной стоимости в транспортной сети,Finding minimal-cost flow in a transportation network,false,164
+201,Задача о назначениях,Assignment problem,false,164
+202,Венгерский алгоритм,Hungarian algorithm,false,201
+203,Алгоритм аукциона,Auction algorithm,false,201
+204,Алгоритм Гопкрофта-Карпа,Hopcroft–Karp algorithm,false,201
+205,Вычисление центральности вершин,Betweenness centrality algorithm,false,164
+206,Вычислительная геометрия,Computational geometry,without_page,
+207,Поиск диаметра множества точек,Finding the diameter of a point set,false,206
+208,Построение выпуклой оболочки набора точек,Finding the convex hull of a point set,false,206
+209,Триангуляция Делоне,Delaunay triangulation,false,206
+210,Диаграмма Вороного,Voronoi diagram,false,206
+211,Принадлежность точки многоугольнику,Point-in-polygon problem,false,206
+212,Пересечения выпуклых многоугольников,Convex polygon intersection,false,206
+213,Пересечение звёздных многоугольников,Star-shaped polygon intersection,false,206
+214,Компьютерная графика,Computer graphics,without_page,206
+215,Алгоритмы построения отрезка - алгоритмы для аппроксимации отрезка на дискретной графической поверхности,Line drawing algorithms: Approximating a line segment on discrete graphical media,false,214
+216,Алгоритм определения видимых частей трёхмерной сцены,Determining visible parts of a three-dimensional scene,false,214
+217,Трассировка лучей - рендеринг реалистичных изображений,Ray tracing: Rendering realistic images,false,214
+218,Глобальное освещение - рассматривает прямое освещение и отражение от других объектов,Global illumination: Regarding direct illumination and reflection from other objects,false,214
+219,Исследование и моделирование компьютеров,Computer analysis and modeling,without_page,
+220,Тесты производительности компьютеров,Computer benchmarks,without_page,219
+221,High Performance Conjugate Gradient (HPCG) benchmark,High Performance Conjugate Gradient (HPCG) benchmark,false,220
+222,Linpack benchmark,Linpack benchmark,false,220
+223,Алгоритмы моделирования квантовых систем,Algorithms of quantum system simulation,without_page,219
+224,Алгоритмы моделирования квантовых вычислений,Algorithms of quantum computation simulation,false,223
+225,Однокубитное преобразование вектора-состояния,Single-qubit transform of a state vector,false,224
+226,Двухкубитное преобразование вектора-состояния,Two-qubit transform of a state vector,false,224
+227,Моделирование квантового преобразования Фурье,Quantum Fourier transform simulation,false,224
+228,Алгоритмы машинного обучения,Machine learning algorithms,without_page,219
+229,Алгоритм k средних (k-means),k-means clustering,false,228
+230,Нейронные сети,Neural networks,without_page,228
+231,Распознавание образов,Pattern recognition,false,230
+232,Распознавание текста,Text recognition,false,231
+233,Распознавание речи,Speech recognition,false,231
+234,Распознавание лиц,Face recognition,false,231
+235,Алгоритмы теории игр,Game theory algorithms,without_page,228
+236,Прикладные задачи из разных областей,Miscellaneous applied problems,without_page,
+237,Алгоритмы оптимизации,Optimization algorithms,without_page,236
+238,Линейное программирование,Linear programming,false,237
+239,Симплекс-метод,Simplex algorithm,false,237
+240,Метод ветвей и границ,Branch and bound method,false,237
+241,Генетические алгоритмы,Genetic algorithms,false,237
+242,Муравьиные алгоритмы,Ant colony algorithms,false,237
+243,Комбинированные алгоритмы,Hybrid algorithms,false,237
+244,Стохастическое двойственное динамическое программирование (SDDP),Stochastic dual dynamic programming (SDDP),false,237
+245,Решение систем нелинейных уравнений,Solving systems of nonlinear equations,without_page,236
+246,Метод Ньютона для систем нелинейных уравнений,Newton's method for systems of nonlinear equations,false,245
+247,Численные методы интегрирования,Numerical quadrature,without_page,236
+248,Квадратурные формулы,Cubature rules,false,247
+249,Квадратурные (кубатурные) методы численного интегрирования по отрезку (многомерному кубу),Numerical quadrature (cubature) rules on an interval (for a multidimensional cube),false,247
+250,Алгоритмы решения уравнений математической физики,Algorithms for solving equations of mathematical physics,without_page,236
+251,"Уравнение Пуассона, решение дискретным преобразованием Фурье","Poisson equation, solving with DFT",false,250
+252,Криптографические алгоритмы,Cryptographic algorithms,without_page,
+253,Метод встречи посередине,Meet-in-the-middle attack,false,252
+254,Другие алгоритмы,Other algorithms,without_page,
