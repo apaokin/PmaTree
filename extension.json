@@ -11,6 +11,7 @@
 	"AutoloadClasses": {
 		"SpecialPmaTree": "SpecialPmaTree.php",
 		"PmaTreeHooks": "PmaTreeHooks.php",
+		"ApiQueryPmaTree": "ApiQueryPmaTree.php",
 		"Sync": "Sync.php",
 		"Pma": "Pma.php"
 	},
@@ -19,6 +20,9 @@
 	},
 	"ExtensionMessagesFiles": {
 		"PmaTreeAlias": "i18n/PmaTree.i18n.alias.php"
+	},
+	"APIListModules": {
+		"pmatree": "ApiQueryPmaTree"
 	},
 	"MessagesDirs": {
 		"PmaTree": [

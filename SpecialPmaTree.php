@@ -100,18 +100,70 @@ class SpecialPmaTree extends SpecialPage {
       }
   }
 
+  function edit(){
+    $this-> getOutput()->addHtml(file_get_contents(__DIR__ . '/js/libraries.html'));
+    $this-> getOutput()->addHtml('<div id="pma-messages"></div>');
+    $this-> getOutput()->addHtml('<div id="pma-tree-top"></div>');
+    $this-> getOutput()->addHtml('<div id="pma-tree-bottom"></div>');
+    $pmas_json =  json_encode($this->pmas);
+    $type_maps = json_encode(Pma::$type_maps);
+    ob_start();
+     include __DIR__ . '/js/form.js';
+     $include = ob_get_contents();
+    ob_end_clean();
+    $this-> getOutput()->addHtml('<script>' . $include. '</script>');
+  }
+  function new(){
+    $this-> getOutput()->addHtml(file_get_contents(__DIR__ . '/js/libraries.html'));
+    $this-> getOutput()->addHtml('<div id="pma-messages"></div>');
+    $this-> getOutput()->addHtml('<div id="pma-tree-top"></div>');
+    $this-> getOutput()->addHtml('<div id="pma-tree-bottom"></div>');
+    $pmas_json =  json_encode($this->pmas);
+    $type_maps = json_encode(Pma::$type_maps);
+    ob_start();
+     include __DIR__ . '/js/new_form.js';
+     $include = ob_get_contents();
+    ob_end_clean();
+    $this-> getOutput()->addHtml('<script>' . $include. '</script>');
+  }
+
+  function update(){
+    $request = $this->getRequest();
+    $attrs = array();
+    foreach (['ru_name','en_name','id','type'] as $value)
+      $attrs[$value] = $request->getText($value);
+    $attrs['parents_ids'] = explode(',',$request->getText('hidden_parents_ids'));
+    Pma::update($attrs);
+    // print $request->getText('childs_ids');
+    // print $request->getText('parents_ids');
+    $this->edit();
+  }
+
   function execute( $par ) {
     $this->output= '';
     $request = $this->getRequest();
     $this->setHeaders();
-
-    $this->getOutput()->addHtml(Xml::submitButton( $this->msg( 'checkuser-check' )->text(),
-    			[ 'id' => 'checkusersubmit', 'name' => 'checkusersubmit' ] ));
-
     $pmas_results = Pma::selectAllWithCategories();
     foreach($pmas_results as $pma)
       $this->pmas[]= $pma;
-    $inits = $this->get_sub_array($this->pmas, 'parents_exists', NULL);
+    if ($request->getText('action') == 'edit'){
+      $this->edit();
+      return;
+    }
+    if ($request->getText('action') == 'new'){
+      $this->new();
+      return;
+    }
+
+    if ($request->getText('action') == 'update'){
+      $this->update();
+      return;
+    }
+
+    $this->getOutput()->addHtml('<a href="/ru/Special:PMA_Tree?action=edit">' .Xml::submitButton( $this->msg( 'pmatree-edit' ),
+    			[ 'id' => 'pmatreesubmit', 'name' => 'pmatreesubmit' ] ) .'</a>');
+
+    $inits = $this->get_sub_array($this->pmas, 'parents_ids', NULL);
     foreach($inits as $pma){
       $this->render_element($pma,1);
     }
