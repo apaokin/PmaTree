@@ -6,6 +6,11 @@ class ApiQueryPmaTree extends ApiQueryBase {
 	public function execute() {
 		// global $wgCheckUserForceSummary;
 		$result = $this->getResult();
-		$result->addValue( ['query', $this->getModuleName() ], 'results', 'ddddd' );
+		$pmas = [];
+		foreach(Pma::selectAllWithCategories() as $pma){
+			$pma->type = Pma::$type_maps[$pma->type];
+			$pmas[]=$pma;
+		}
+		$result->addValue( ['query', $this->getModuleName() ], 'results', $pmas );
 	}
 }

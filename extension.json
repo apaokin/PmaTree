@@ -4,8 +4,8 @@
 	"author": [
 		"Andrei Paokin"
 	],
-	"url": "https://www.mediawiki.org/wiki/Extension:MyExtension",
-	"descriptionmsg": "algosdwdwwdtats-desc",
+	"url": "https://github.com/apaokin/PmaTree",
+	"descriptionmsg": "Extension to edit algorithm classification",
 	"license-name": "MIT",
 	"type": "SpecialPage",
 	"AutoloadClasses": {
@@ -15,6 +15,14 @@
 		"Sync": "Sync.php",
 		"Pma": "Pma.php"
 	},
+	"GroupPermissions": {
+		"pmatree": {
+			"pmatree_edit": true
+		}
+	},
+	"AvailableRights": [
+		"pmatree_edit"
+	],
 	"SpecialPages": {
 		"PmaTree": "SpecialPmaTree"
 	},
