@@ -81,6 +81,7 @@ $("#pma-tree-top").alpaca({
       if(updated()){
         control.setValue(attrs.id);
       }
+      console.log(attrs);
       if(attrs.parent_id && (!attrs.id || attrs.id != 'new') ){
         renderForm('new');
       }

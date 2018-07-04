@@ -117,13 +117,11 @@ class SpecialPmaTree extends SpecialPage {
   }
 
   function edit($from_update = 'no'){
-    // var_dump($from_update);
-    if($from_update == 'no')
-    {
-      $from_update = json_encode(array("a" => "new"));
-    }
     if($from_update == 'no' && $this->getRequest()->getText('parent_id')){
-      $from_update = json_encode(array("a" => "new","parent_id" => $this->getRequest()->getText('parent_id')));
+        $from_update = json_encode(array("a" => "new","parent_id" => $this->getRequest()->getText('parent_id')));
+    }
+    elseif($from_update == 'no'){
+      $from_update = json_encode(array("a" => "new"));
     }
     $this-> getOutput()->addHtml(file_get_contents(__DIR__ . '/js/libraries.html'));
     $this-> getOutput()->addHtml('<div id="pma-tree-top"></div>');
