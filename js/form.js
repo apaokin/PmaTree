@@ -81,7 +81,12 @@ $("#pma-tree-top").alpaca({
       if(updated()){
         control.setValue(attrs.id);
       }
-			renderForm(control.getValue());
+      if(attrs.parent_id && (!attrs.id || attrs.id != 'new') ){
+        renderForm('new');
+      }
+      else{
+        renderForm(control.getValue());
+      }
 			control.getControlEl().select2();
     }
 });

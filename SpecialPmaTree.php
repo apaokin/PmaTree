@@ -122,7 +122,7 @@ class SpecialPmaTree extends SpecialPage {
     {
       $from_update = json_encode(array("a" => "new"));
     }
-    if($this->getRequest()->getText('parent_id')){
+    if($from_update == 'no' && $this->getRequest()->getText('parent_id')){
       $from_update = json_encode(array("a" => "new","parent_id" => $this->getRequest()->getText('parent_id')));
     }
     $this-> getOutput()->addHtml(file_get_contents(__DIR__ . '/js/libraries.html'));

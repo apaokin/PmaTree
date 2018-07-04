@@ -4,20 +4,23 @@ function renderForm(id){
   if(updated() && attrs['id'] == id ){
     data = attrs;
   }
-  else if(attrs.parent_id){
-          data = {
-                  "type": type_maps.indexOf('implementation'),
-                	"parents_ids": [attrs.parent_id],
-                  "id": 'new'
-                }
-  }else{
+  else{
     if(id== 'new')
     {
-      data = {
-              "type": type_maps.indexOf('without_page'),
-            	"parents_ids": [],
-              "id": 'new'
+      if(attrs.parent_id){
+        data = {
+                "type": type_maps.indexOf('implementation'),
+                "parents_ids": [attrs.parent_id],
+                "id": 'new'
               }
+      }
+      else{
+        data = {
+                "type": type_maps.indexOf('without_page'),
+              	"parents_ids": [],
+                "id": 'new'
+                }
+    }
     }
     else{
       data = pmas.find(function(elem){
