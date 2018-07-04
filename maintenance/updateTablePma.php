@@ -33,7 +33,7 @@ class PmaUpdater extends Maintenance {
   public function execute() {
     Pma::truncateTable();
     $linesToIds = array();
-    if (($handle = fopen(__DIR__ . "/PmaTreePma.csv", "r")) !== FALSE) {
+    if (($handle = fopen(__DIR__ . "/../PmaTreePma.csv", "r")) !== FALSE) {
         fgetcsv($handle, 1000, ",");
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 					$line = $data[0];

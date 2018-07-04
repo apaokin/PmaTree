@@ -3,6 +3,7 @@
 	"myextension-desc": "Adds the MyExtension functionality.",
 	"myextension-summary": "On this special page, do this simple thing and earn wonders.",
 	"pmatree-implementation": "Реализация ",
+	"pmatree-add-implementation": "Добавить реализацию ",
 	"pmatree-edit": "Редактировать",
 	"pmatree-show": "Вернуться к странице просмотра",
 	"pmatree-success": "Успешно отредактировано",
@@ -26,6 +27,7 @@
 	"pmatree-error-en_name_empty": "Название на английском пусто",
 	"pmatree-error-ru_name_capital": "Название на русском должно начинаться с заглавной буквы",
 	"pmatree-error-en_name_capital": "Название на английском должно начинаться с заглавной буквы",
+	"pmatree-error-implementation_parent": "У реализации родителем может быть только алгоритм и реализация",
 	"pmatree-error-order": "Один из родителей имеет тип, не сочетающийся с выбранным объектом. Например, метод не может быть потомком алгоритма",
 	"pmatree-error-children": "Нельзя удалить запись с существующими сыновьями",
 	"pmatree-error-new_delete": "Нельзя удалить новую запись",
@@ -33,5 +35,4 @@
 	"pmatree-actions-delete": "Удалить",
 	"pmatree-buttons-add": "Новая запись",
 	"right-pmatree_edit": "Редактировать классификацию алгоритмов"
-
 }

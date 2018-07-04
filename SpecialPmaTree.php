@@ -79,13 +79,13 @@ class SpecialPmaTree extends SpecialPage {
     }
   }
 
-  function ifRussian(){
+  function isRussian(){
     return ($GLOBALS['wgContLang']->getCode()==='ru');
   }
 
   function render_with_type($elem)
   {
-    if($this->ifRussian()){
+    if($this->isRussian()){
       return $this->render_with_type_russian($elem);
     }
     else{
@@ -121,6 +121,9 @@ class SpecialPmaTree extends SpecialPage {
     if($from_update == 'no')
     {
       $from_update = json_encode(array("a" => "new"));
+    }
+    if($this->getRequest()->getText('parent_id')){
+      $from_update = json_encode(array("a" => "new","parent_id" => $this->getRequest()->getText('parent_id')));
     }
     $this-> getOutput()->addHtml(file_get_contents(__DIR__ . '/js/libraries.html'));
     $this-> getOutput()->addHtml('<div id="pma-tree-top"></div>');
@@ -198,7 +201,7 @@ class SpecialPmaTree extends SpecialPage {
     //   return;
     // }
 
-    if(in_array('pmatree_edit', $this->getUser()->getRights()) && $this->ifRussian()){
+    if(in_array('pmatree_edit', $this->getUser()->getRights()) && $this->isRussian()){
       $this->getOutput()->addHtml('<a href="/ru/Special:PMA_Tree?action=edit">' .Xml::submitButton( $this->msg( 'pmatree-edit' ),
       			[ 'id' => 'pmatreesubmit', 'name' => 'pmatreesubmit' ] ) .'</a>');
     }

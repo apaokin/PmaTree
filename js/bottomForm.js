@@ -4,7 +4,13 @@ function renderForm(id){
   if(updated() && attrs['id'] == id ){
     data = attrs;
   }
-  else{
+  else if(attrs.parent_id){
+          data = {
+                  "type": type_maps.indexOf('implementation'),
+                	"parents_ids": [attrs.parent_id],
+                  "id": 'new'
+                }
+  }else{
     if(id== 'new')
     {
       data = {

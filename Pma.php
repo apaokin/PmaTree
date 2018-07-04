@@ -222,6 +222,11 @@ class Pma {
         if($attrs['type'] == '3' && Self::find_or_raise_exception(Self::$pmas,'id',$parent_id)->type != '3'){
           return 'not_without_page_parent';
         }
+        if($attrs['type'] == '5'){
+          $type = Self::find_or_raise_exception(Self::$pmas,'id',$parent_id)->type;
+          if($type !== '5' && $type !== '0')
+            return 'implementation_parent';
+        }
       }
       if($attrs['en_name'] === ''){
         return 'en_name_empty';
@@ -315,6 +320,18 @@ class Pma {
   }
 
 
+
+  public static function findPmaByRuTitle($name)
+  {
+    $name = addslashes($name);
+    return Self::dbr()->selectField('pma_tree_pma','id',"ru_name = '{$name}'");
+  }
+
+  public static function findPmaByEnTitle($name)
+  {
+    $name = addslashes($name);
+    return Self::dbr()->selectField('pma_tree_pma','id',"en_name = '{$name}'");
+  }
 
   public static function selectAllWithCategories()
   {

@@ -66,6 +66,11 @@ class PmaTreeHooks{
     <span style="font-size:10px;" class="mw-ui-button mw-ui-progressive">Get Perf.Data</span></a>';
   }
 
+  public static function addImplementationLink($link){
+    return '<a style="float: right;" href="' . $link . '">
+    <span style="font-size:10px;" class="mw-ui-button mw-ui-progressive">'.wfMessage('pmatree-add-implementation').'</span></a>';
+  }
+
 
   public static function onArticleViewHeader( &$article, &$outputDone, &$pcache ) {
     $id = $article -> getId();
@@ -73,6 +78,11 @@ class PmaTreeHooks{
     if($GLOBALS['wgSitename'] == 'Алговики')
     {
       $top53_id = Sync::Top53IdByRuPageId($id);
+      $pmaId = Pma::findPmaByRuTitle(Self::addUndescores($article->getTitle()));
+      if($pmaId && (in_array('pmatree_edit', $GLOBALS['wgUser']->getRights()))){
+        $impUrl = $GLOBALS['wgServer']."/ru/Special:PmaTree?action=edit&parent_id={$pmaId}";
+        $article->getContext()->getOutput()->addHTML(Self::addImplementationLink($impUrl));
+      };
       if($top53_id)
       {
         foreach($categories as $cat)
@@ -91,6 +101,11 @@ class PmaTreeHooks{
     }
     else{
       $top53_id = Sync::Top53IdByEnPageId($id);
+      $pmaId = Pma::findPmaByEnTitle(Self::addUndescores($article->getTitle()));
+      if($pmaId && (in_array('pmatree_edit', $GLOBALS['wgUser']->getRights()))){
+        $impUrl = $GLOBALS['wgServer']."/en/Special:PmaTree?action=edit&parent_id={$pmaId}";
+        $article->getContext()->getOutput()->addHTML(Self::addImplementationLink($impUrl));
+      };
       if($top53_id)
       {
         // $article->getContext()->getOutput()->addWikiText($cat);
