@@ -10,4 +10,4 @@ CREATE TABLE pma_tree_pma (
   PRIMARY KEY (id),
   KEY en_name_key (en_name),
 	KEY ru_name_key (ru_name)
-) DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=binary;
