@@ -1,5 +1,5 @@
 {
-	"pmatree": "Классификация алгоритмов (тестовый режим)",
+	"pmatree": "Классификация алгоритмов",
 	"myextension-desc": "Adds the MyExtension functionality.",
 	"myextension-summary": "On this special page, do this simple thing and earn wonders.",
 	"pmatree-implementation": "Реализация ",
@@ -17,7 +17,7 @@
 	"pmatree-parents": "Родители",
 	"pmatree-type": "Тип",
 	"pmatree-error-not_without_page_parent": "Родитель обязан тоже быть заголовком",
-	"pmatree-error-null_not_without_page": "Объект, не имеющий ни одной родительской вершины, может быть только заголовком(without_page)",
+	"pmatree-error-null_not_without_page": "Объект, не имеющий ни одной родительской вершины, может быть только заголовком (without_page)",
 	"pmatree-error-cycle": "Один из родителей является потомком данного объекта, что приводит к зацикливанию и недопустимо",
 	"pmatree-error-ru_name_exists": "Существует задача, алгоритм или метод с заданным названием на русском",
 	"pmatree-error-en_name_exists": "Существует задача, алгоритм или метод с заданным названием на английском",
@@ -31,6 +31,7 @@
 	"pmatree-error-order": "Один из родителей имеет тип, не сочетающийся с выбранным объектом. Например, метод не может быть потомком алгоритма",
 	"pmatree-error-children": "Нельзя удалить запись с существующими сыновьями",
 	"pmatree-error-new_delete": "Нельзя удалить новую запись",
+	"pmatree-error-hierarchy": "Один из родителей-заголовков содержит подразделы. В качестве родителя должен быть указан подраздел",
 	"pmatree-actions-save": "Сохранить",
 	"pmatree-actions-delete": "Удалить",
 	"pmatree-buttons-add": "Новая запись",

@@ -138,6 +138,22 @@ class SpecialPmaTree extends SpecialPage {
      $include = ob_get_contents();
     ob_end_clean();
     $this-> getOutput()->addHtml('<script>' . $include. '</script>');
+    if ($this->isRussian()){
+      $this->getOutput()->addHtml('<script type="text/javascript">
+                                  $(document).ready(function(){
+                                    $("#mw-panel").append(\'<div id="p-lang" class="portal" role="navigation" aria-labelledby="p-lang-label"> <h3 id="p-lang-label">На других языках</h3> </div>\');
+                                    $("#p-lang").append(\'<div class = "body"> <ul> <li id="l-change"> </li> </ul> </div>\');
+                                    $("#l-change").append(\'<a href="/en/Special:PMA_Tree?action=edit" hreflang = "en" lang = "en">English</a>\');});
+                                  </script>');
+    }
+    else {
+      $this->getOutput()->addHtml('<script type="text/javascript">
+                                $(document).ready(function(){
+                                  $("#mw-panel").append(\'<div id="p-lang" class="portal" role="navigation" aria-labelledby="p-lang-label"> <h3 id="p-lang-label">In other languages</h3> </div>\');
+                                  $("#p-lang").append(\'<div class = "body"> <ul> <li id="l-change"> </li> </ul> </div>\');
+                                  $("#l-change").append(\'<a href="/ru/Special:PMA_Tree?action=edit" hreflang = "ru" lang = "ru">Русский</a>\');});
+                                </script>');
+    }
   }
 
   function update(){
@@ -168,7 +184,6 @@ class SpecialPmaTree extends SpecialPage {
   }
 
   function execute( $par ) {
-
     $this->output= '';
     $request = $this->getRequest();
     $this->setHeaders();
@@ -178,10 +193,14 @@ class SpecialPmaTree extends SpecialPage {
 		    return;
       }
       else{
-        $this->getOutput()->addHtml('<a href="/ru/Special:PMA_Tree">' .Xml::submitButton( $this->msg( 'pmatree-show' )).'</a>');
+        if ($this->isRussian()){
+          $this->getOutput()->addHtml('<a href="/ru/Special:PMA_Tree">' .Xml::submitButton( $this->msg( 'pmatree-show' )).'</a>');
+        }
+        else {
+          $this->getOutput()->addHtml('<a href="/en/Special:PMA_Tree">' .Xml::submitButton( $this->msg( 'pmatree-show' )).'</a>');
+        }
       }
     }
-
 
     if ($request->getText('action') == 'update'){
       $this->update();
@@ -203,11 +222,34 @@ class SpecialPmaTree extends SpecialPage {
       $this->getOutput()->addHtml('<a href="/ru/Special:PMA_Tree?action=edit">' .Xml::submitButton( $this->msg( 'pmatree-edit' ),
       			[ 'id' => 'pmatreesubmit', 'name' => 'pmatreesubmit' ] ) .'</a>');
     }
+    if(in_array('pmatree_edit', $this->getUser()->getRights()) && !$this->isRussian()){
+      $this->getOutput()->addHtml('<a href="/en/Special:PMA_Tree?action=edit">' .Xml::submitButton( $this->msg( 'pmatree-edit' ),
+      			[ 'id' => 'pmatreesubmit', 'name' => 'pmatreesubmit' ] ) .'</a>');
+    }
 
     $inits = Pma::get_sub_array($this->pmas, 'parents_ids', NULL);
     foreach($inits as $pma){
       $this->render_element($pma,1);
     }
+
     $this-> getOutput()->addWikiText($this->output);
+
+    $this->getOutput()->addHtml('<script type="text/javascript" src="js/jquery.js"></script>');
+    if ($this->isRussian()){
+      $this->getOutput()->addHtml('<script type="text/javascript">
+                                  $(document).ready(function(){
+                                    $("#mw-panel").append(\'<div id="p-lang" class="portal" role="navigation" aria-labelledby="p-lang-label"> <h3 id="p-lang-label">На других языках</h3> </div>\');
+                                    $("#p-lang").append(\'<div class = "body"> <ul> <li id="l-change"> </li> </ul> </div>\');
+                                    $("#l-change").append(\'<a href="/en/Special:PMA_Tree" hreflang = "en" lang = "en">English</a>\');});
+                                  </script>');
+    }
+    else {
+      $this->getOutput()->addHtml('<script type="text/javascript">
+                                $(document).ready(function(){
+                                  $("#mw-panel").append(\'<div id="p-lang" class="portal" role="navigation" aria-labelledby="p-lang-label"> <h3 id="p-lang-label">In other languages</h3> </div>\');
+                                  $("#p-lang").append(\'<div class = "body"> <ul> <li id="l-change"> </li> </ul> </div>\');
+                                  $("#l-change").append(\'<a href="/ru/Special:PMA_Tree" hreflang = "ru" lang = "ru">Русский</a>\');});
+                                </script>');
+    }
   }
 }

@@ -216,6 +216,24 @@ class Pma {
       if(!count($attrs['parents_ids']) && $attrs['type'] != '3') {
         return 'null_not_without_page';
       }
+//Dolganov 15.11.18
+      if ($attrs['type'] != '3')
+      {
+        foreach ($attrs['parents_ids'] as $parent)
+        {
+          $counter = 0;
+          if (Self::find_or_raise_exception(Self::$pmas,'id',$parent)->type == '3' && Self::find_or_raise_exception(Self::$pmas,'id',$parent)->childs_ids)
+          {
+            foreach (Self::find_or_raise_exception(Self::$pmas,'id',$parent)->childs_ids as $child) {
+              if (Self::find_or_raise_exception(Self::$pmas,'id',$child)->type == '3'){
+                $counter = $counter + 1;
+              }
+            }
+            if ($counter > 0)
+              return "hierarchy";
+          }
+        }
+      }
     }
     else{
       foreach ($attrs['parents_ids'] as $parent_id) {
@@ -238,7 +256,7 @@ class Pma {
     if(!Self::starts_with_upper($attrs['ru_name'])){
       return 'ru_name_capital';
     }
-    if(!Self::starts_with_upper($attrs['ru_name'])){
+    if(!Self::starts_with_upper($attrs['en_name'])){
       return 'en_name_capital';
     }
     foreach($attrs['parents_ids'] as $elem){
