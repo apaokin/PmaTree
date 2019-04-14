@@ -158,12 +158,6 @@ $(document).ready(function(){
                     journalForm.getControlByPath('type_of_change').setValue("deny");
                     this.submit();
                   }
-                },
-                "view": {
-                  "label": "View JSON",
-                  "click": function() {
-                    alert(JSON.stringify(this.getValue(), null, "  "));
-                  }
                 }
               }
             }
@@ -226,12 +220,6 @@ $(document).ready(function(){
                     journalForm.getControlByPath('selection').setValue(str);
                     journalForm.getControlByPath('type_of_change').setValue("cancel");
                     this.submit();
-                  }
-                },
-                "view": {
-                  "label": "View JSON",
-                  "click": function() {
-                    alert(JSON.stringify(this.getValue(), null, "  "));
                   }
                 }
               }
