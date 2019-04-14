@@ -105,6 +105,7 @@ function renderForm(id){
           "ru_name":{
 						label: "<?php echo $this->msg('pmatree-ru_name')?>",
 						helper: "<?php echo $this->msg('pmatree-ru_name-helper')?>",
+            "readonly": "<?php echo $rights?>",
             validator: function(callback){
               if(bottomForm.getControlByPath('ru_name').getValue() == '' && bottomForm.getControlByPath('en_name').getValue() == ''){
                 callback({
@@ -121,6 +122,7 @@ function renderForm(id){
 					"en_name":{
 						label: "<?php echo $this->msg('pmatree-en_name')?>",
 						helper: "<?php echo $this->msg('pmatree-en_name-helper')?>",
+            "readonly": "<?php echo $rights?>",
             validator: function(callback){
               if(bottomForm.getControlByPath('ru_name').getValue() == '' && bottomForm.getControlByPath('en_name').getValue() == ''){
                 callback({
@@ -136,9 +138,11 @@ function renderForm(id){
 					},
           "ru_short":{
             label: "<?php echo $this->msg('pmatree-ru_short')?>",
+            "readonly": "<?php echo $rights?>",
           },
           "en_short":{
             label: "<?php echo $this->msg('pmatree-en_short')?>",
+            "readonly": "<?php echo $rights?>",
           },
           "id":{
             type: 'hidden'
@@ -159,6 +163,7 @@ function renderForm(id){
             label: "<?php echo $this->msg('pmatree-type')?>",
             optionLabels: type_maps,
             "sort": false,
+            "readonly": "<?php echo $rights?>",
             // validate: false,
             validator: function(callback){
               if(!bottomForm.getControlByPath('parents_ids').getValue().length && this.getValue() != type_maps.indexOf('without_page')){

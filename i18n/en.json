@@ -6,6 +6,7 @@
 	"pmatree-implementation": "Implementation ",
 	"pmatree-add-implementation": "Add implementation",
 	"pmatree-edit": "Edit",
+	"pmatree-edit-back": "Return to editor",
 	"pmatree-show": "Return to index",
 	"pmatree-success": "Page is edited successfully",
 	"pmatree-choose-pma": "Choose object",
@@ -36,5 +37,9 @@
 	"pmatree-actions-save": "Save",
 	"pmatree-actions-delete": "Delete",
 	"pmatree-buttons-add": "New record",
-	"right-pmatree_edit": "Edit algorithm classification"
+	"right-pmatree_edit": "Edit algorithm classification",
+	"pmatree-journal": "Change log",
+	"pmatree-journal-confirm": "Confirm",
+	"pmatree-journal-deny": "Deny",
+	"pmatree-journal-cancel": "Cancel"
 }

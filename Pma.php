@@ -285,6 +285,85 @@ class Pma {
     }
     return true;
   }
+
+  public static function validateParents(&$attrs){
+    $attrs['type'] = Self::dbr()->selectField('pma_tree_pma', 'type', "id = '{$attrs['id']}'");
+    $type_readable = Self::$type_maps[$attrs['type']];
+    $pmas = Self::selectAllWithCategories();
+    foreach ($pmas as $value) {
+      if($value->parents_ids){
+        $value->parents_ids = explode(',',$value->parents_ids);
+      }
+      else{
+        $value->parents_ids = array();
+      }
+      if($value->childs_ids){
+        $value->childs_ids = explode(',',$value->childs_ids);
+      }
+      else{
+        $value->childs_ids = array();
+      }
+      Self::$pmas[]=$value;
+    }
+    if($type_readable !== 'without_page' && $type_readable !== 'without_page_and_header' && $type_readable !== 'implementation')
+    {
+      if ($attrs['type'] != '3')
+      {
+        foreach ($attrs['parents_ids'] as $parent)
+        {
+          $counter = 0;
+          if (Self::find_or_raise_exception(Self::$pmas,'id',$parent)->type == '3' && Self::find_or_raise_exception(Self::$pmas,'id',$parent)->childs_ids)
+          {
+            foreach (Self::find_or_raise_exception(Self::$pmas,'id',$parent)->childs_ids as $child) {
+              if (Self::find_or_raise_exception(Self::$pmas,'id',$child)->type == '3'){
+                $counter = $counter + 1;
+              }
+            }
+            if ($counter > 0)
+              return "hierarchy";
+          }
+        }
+      }
+    }
+    else {
+      foreach ($attrs['parents_ids'] as $parent_id) {
+        if($attrs['type'] == '3' && Self::find_or_raise_exception(Self::$pmas,'id',$parent_id)->type != '3'){
+          return 'not_without_page_parent';
+        }
+        if($attrs['type'] == '5'){
+          $type = Self::find_or_raise_exception(Self::$pmas,'id',$parent_id)->type;
+          if($type !== '5' && $type !== '0')
+            return 'implementation_parent';
+        }
+      }
+    }
+    foreach($attrs['parents_ids'] as $elem){
+      $error = Self::check_parents(Self::find_or_raise_exception(Self::$pmas,'id',$elem),$attrs['type']);
+      if($error){
+        return 'order';
+      }
+    }
+    if($attrs['id']!='new'){
+      foreach ($attrs['parents_ids'] as $value) {
+        $parent =  &Self::find_or_raise_exception(Self::$pmas,'id',$value);
+        $childs_array = $parent->childs_ids;
+        if(!in_array($attrs['id'],$childs_array)){
+          array_push($childs_array,$attrs['id']);
+          $parent->childs_ids = $childs_array;
+        }
+      }
+      $ids = [];
+      foreach(Self::get_sub_array(Self::$pmas,'parents_ids',array()) as $elem){
+        $cycle = Self::check_cycles($elem,$ids);
+        if($cycle)
+        {
+          return 'cycle';
+        }
+      }
+    }
+    return true;
+  }
+
   public static function check_parents($elem,$type){
    $order = ['1','2','0','5'];
    if(array_search($type,$order) !== NULL && array_search($elem->type,$order) !== NULL  && array_search($type,$order) < array_search($elem->type,$order))
@@ -376,5 +455,85 @@ class Pma {
   public static function truncateTable() {
     Self::dbr() ->delete('pma_tree_pma','*');
     Self::dbr() ->delete('pma_tree_links','*');
+  }
+
+  public static function getParentIDs($childID, $user)
+  {
+    $deleted_parent_ids = array();
+    $old_parent_ids = array();
+    $deleted_parents = Self::dbr()->query("SELECT parent_id
+                                           FROM pma_tree_log
+                                           WHERE child_id = '{$childID}'
+                                           AND type = 1
+                                           AND status = 'waiting'
+                                           AND user_id = '{$user}'");
+    $old_parents = Self::dbr()->query("SELECT parent_id
+                                       FROM pma_tree_links
+                                       WHERE child_id = '{$childID}'");
+    foreach ($deleted_parents as $dp) {
+      $deleted_parent_ids[] = $dp->parent_id;
+    }
+    foreach ($old_parents as $op) {
+      $old_parent_ids[] = $op->parent_id;
+    }
+    return array_diff($old_parent_ids, $deleted_parent_ids);
+  }
+
+  public static function addChange($user, $username, $id, $pid, $add_del)
+  {
+    $child_ru = Self::dbr()->selectField('pma_tree_pma','ru_name',"id = '{$id}'");
+    $child_en = Self::dbr()->selectField('pma_tree_pma','en_name',"id = '{$id}'");
+    $parent_ru = Self::dbr()->selectField('pma_tree_pma','ru_name',"id = '{$pid}'");
+    $parent_en = Self::dbr()->selectField('pma_tree_pma','en_name',"id = '{$pid}'");
+    Self::dbr()->insert('pma_tree_log', array('type' => $add_del,
+                                              'status' => 'waiting',
+                                              'user_id' => $user,
+                                              'user_name' => $username,
+                                              'child_id' => $id,
+                                              'child_ru_name' => $child_ru,
+                                              'child_en_name' => $child_ru,
+                                              'parent_id' => $pid,
+                                              'parent_ru_name' => $parent_ru,
+                                              'parent_en_name' => $parent_en
+                                            ));
+    Self::dbr()->commit();
+  }
+
+  public static function getLog($user, $user_rights)
+  {
+    if ($user_rights)
+      return Self::dbr()->query("SELECT *
+                                 FROM pma_tree_log
+                                 WHERE status = 'waiting'");
+    else {
+      return Self::dbr()->query("SELECT *
+                                 FROM pma_tree_log
+                                 WHERE user_id = '{$user}'");
+    }
+  }
+
+  public static function changeLog($id, $type_of_change){
+    if ($type_of_change == 'confirm' || $type_of_change == 'deny')
+    {
+      $tmp = Self::dbr()->selectRow('pma_tree_log', array('id', 'type', 'child_id', 'parent_id'), "id = '{$id}'");
+      $curr = array('id' => $tmp->id, 'type' => $tmp->type, 'child_id' => $tmp->child_id, 'parent_id' => $tmp->parent_id);
+      if ($type_of_change == 'confirm'){
+        if ($curr['type'] == 0){
+          if (!Self::dbr()->selectField('pma_tree_links', 'id', array('child_id' => $curr['child_id'], 'parent_id' => $curr['parent_id'])))
+            Self::dbr()->insert('pma_tree_links', array('child_id' => $curr['child_id'], 'parent_id' => $curr['parent_id']));
+        }
+        else {
+          Self::dbr()->delete('pma_tree_links', array('child_id' => $curr['child_id'], 'parent_id' => $curr['parent_id']));
+        }
+        Self::dbr()->query("UPDATE pma_tree_log SET status = 'confirmed' WHERE id = '{$curr['id']}'");
+      }
+      else {
+        Self::dbr()->query("UPDATE pma_tree_log SET status = 'denied' WHERE id = '{$curr['id']}'");
+      }
+    }
+    else {
+      Self::dbr()->delete('pma_tree_log', "id = '{$id}'");
+    }
+    Self::dbr()->commit();
   }
 }

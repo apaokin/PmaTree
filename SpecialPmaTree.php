@@ -123,6 +123,11 @@ class SpecialPmaTree extends SpecialPage {
     elseif($from_update == 'no'){
       $from_update = json_encode(array("a" => "new"));
     }
+    $rights = in_array('pmatree_edit', $this->getUser()->getRights());
+    if ($rights)
+      $rights = FALSE;
+    else
+      $rights = TRUE;
     $this-> getOutput()->addHtml(file_get_contents(__DIR__ . '/js/libraries.html'));
     $this-> getOutput()->addHtml('<div id="pma-tree-top"></div>');
     $this-> getOutput()->addHtml('<div id="pma-tree-bottom"></div>');
@@ -132,12 +137,13 @@ class SpecialPmaTree extends SpecialPage {
      include __DIR__ . '/js/bottomForm.js';
      $include = ob_get_contents();
     ob_end_clean();
-    $this-> getOutput()->addHtml('<script>' . $include. '</script>');
+    $this->getOutput()->addHtml('<script>' . $include. '</script>');
     ob_start();
      include __DIR__ . '/js/form.js';
      $include = ob_get_contents();
     ob_end_clean();
-    $this-> getOutput()->addHtml('<script>' . $include. '</script>');
+    $this->getOutput()->addHtml('<script>' . $include. '</script>');
+
     if ($this->isRussian()){
       $this->getOutput()->addHtml('<script type="text/javascript">
                                   $(document).ready(function(){
@@ -156,6 +162,59 @@ class SpecialPmaTree extends SpecialPage {
     }
   }
 
+  function journal()
+  {
+    $rights = in_array('pmatree_edit', $this->getUser()->getRights());
+    if ($rights)
+      $rights = 1;
+    else
+      $rights = 0;
+    $tmparr = Pma::getlog($this->getUser()->getId(), $rights);
+    $changes = array();
+    foreach ($tmparr as $val)
+      $changes[] = $val;
+    $ta_json = json_encode($changes);
+    $lang = 1;
+    if ($this->isRussian())
+      $lang = 0;
+    $this->getOutput()->addHtml(file_get_contents(__DIR__ . '/js/libraries.html'));
+    $this->getOutput()->addHtml('<div id="log_table"></div>');
+    ob_start();
+     include __DIR__ . '/js/journal.js';
+     $include = ob_get_contents();
+    ob_end_clean();
+    $this->getOutput()->addHtml('<script> ' . $include. ' </script>');
+
+    if ($this->isRussian()){
+      $this->getOutput()->addHtml('<script type="text/javascript">
+                                  $(document).ready(function(){
+                                    $("#mw-panel").append(\'<div id="p-lang" class="portal" role="navigation" aria-labelledby="p-lang-label"> <h3 id="p-lang-label">На других языках</h3> </div>\');
+                                    $("#p-lang").append(\'<div class = "body"> <ul> <li id="l-change"> </li> </ul> </div>\');
+                                    $("#l-change").append(\'<a href="/en/Special:PMA_Tree?action=journal" hreflang = "en" lang = "en">English</a>\');});
+                                  </script>');
+    }
+    else {
+      $this->getOutput()->addHtml('<script type="text/javascript">
+                                $(document).ready(function(){
+                                  $("#mw-panel").append(\'<div id="p-lang" class="portal" role="navigation" aria-labelledby="p-lang-label"> <h3 id="p-lang-label">In other languages</h3> </div>\');
+                                  $("#p-lang").append(\'<div class = "body"> <ul> <li id="l-change"> </li> </ul> </div>\');
+                                  $("#l-change").append(\'<a href="/ru/Special:PMA_Tree?action=journal" hreflang = "ru" lang = "ru">Русский</a>\');});
+                                </script>');
+    }
+  }
+
+  function log()
+  {
+    $request = $this->getRequest();
+    $ind = $request->getText('selection');
+    $indexes = explode(',', $ind);
+    $typeofchange = $request->getText('type_of_change');
+    foreach ($indexes as $i) {
+      Pma::changeLog($i, $typeofchange);
+    }
+    $this->journal();
+  }
+
   function update(){
     $request = $this->getRequest();
     $attrs = array();
@@ -167,17 +226,46 @@ class SpecialPmaTree extends SpecialPage {
     else{
       $attrs['parents_ids'] = [];
     }
-    $res = Pma::update($attrs);
+    if (in_array('pmatree_edit', $this->getUser()->getRights()))
+    {
+      $res = Pma::update($attrs);
+      if($res == 'success'){
+        $resHtml = "<div class='alert alert-success'>{$this->msg('pmatree-success')}</div>";
+      }
+      else{
+        $resHtml = "<div class='alert alert-danger'>{$this->msg('pmatree-error-'.$res)} </div>";
+      }
+      $this-> getOutput()->addHtml($resHtml);
+    }
+    else {
+      $res = Pma::validateParents($attrs);
+      if ($res === true)
+      {
+        $uid = $this->getUser()->getId();
+        $uname = $this->getUser()->getName();
+        $prt = Pma::getParentIDs($attrs['id'], $uid);
+        foreach($attrs['parents_ids'] as $pid)
+        {
+          if(!in_array($pid, $prt))
+            Pma::addChange($uid, $uname, $attrs['id'], $pid, "0");
+        }
+        foreach($prt as $pid)
+        {
+          if(!in_array($pid, $attrs['parents_ids']))
+            Pma::addChange($uid, $uname, $attrs['id'], $pid, "1");
+        }
+      }
+      if($res === true){
+        $resHtml = "<div class='alert alert-success'>{$this->msg('pmatree-success')}</div>";
+      }
+      else{
+        $resHtml = "<div class='alert alert-danger'>{$this->msg('pmatree-error-'.$res)} </div>";
+      }
+      $this-> getOutput()->addHtml($resHtml);
+    }
     $pmas_results = Pma::selectAllWithCategories();
     foreach($pmas_results as $pma)
       $this->pmas[]= $pma;
-    if($res == 'success'){
-      $resHtml = "<div class='alert alert-success'>{$this->msg('pmatree-success')}</div>";
-    }
-    else{
-      $resHtml = "<div class='alert alert-danger'>{$this->msg('pmatree-error-'.$res)} </div>";
-    }
-    $this-> getOutput()->addHtml($resHtml);
     $attrs['ru_name'] = $this->remove_underscores($attrs['ru_name']);
     $attrs['en_name'] = $this->remove_underscores($attrs['en_name']);
     $this->edit(json_encode($attrs));
@@ -188,17 +276,29 @@ class SpecialPmaTree extends SpecialPage {
     $request = $this->getRequest();
     $this->setHeaders();
     if($request->getText('action')){
-      if(!in_array('pmatree_edit', $this->getUser()->getRights())){
-        $this->displayRestrictionError();
-		    return;
-      }
-      else{
         if ($this->isRussian()){
           $this->getOutput()->addHtml('<a href="/ru/Special:PMA_Tree">' .Xml::submitButton( $this->msg( 'pmatree-show' )).'</a>');
         }
         else {
           $this->getOutput()->addHtml('<a href="/en/Special:PMA_Tree">' .Xml::submitButton( $this->msg( 'pmatree-show' )).'</a>');
         }
+    }
+
+    if ($request->getText('action') == 'update' || $request->getText('action') == 'edit'){
+      if ($this->isRussian()){
+        $this->getOutput()->addHtml('<a href="/ru/Special:PMA_Tree?action=journal">' .Xml::submitButton( $this->msg( 'pmatree-journal' )).'</a>');
+      }
+      else {
+        $this->getOutput()->addHtml('<a href="/en/Special:PMA_Tree?action=journal">' .Xml::submitButton( $this->msg( 'pmatree-journal' )).'</a>');
+      }
+    }
+
+    if ($request->getText('action') == 'journal' || $request->getText('action') == 'log'){
+      if ($this->isRussian()){
+        $this->getOutput()->addHtml('<a href="/ru/Special:PMA_Tree?action=edit">' .Xml::submitButton( $this->msg( 'pmatree-edit-back' )).'</a>');
+      }
+      else {
+        $this->getOutput()->addHtml('<a href="/en/Special:PMA_Tree?action=edit">' .Xml::submitButton( $this->msg( 'pmatree-edit-back' )).'</a>');
       }
     }
 
@@ -206,6 +306,19 @@ class SpecialPmaTree extends SpecialPage {
       $this->update();
       return;
     }
+
+    if ($request->getText('action') == 'journal')
+    {
+      $this->journal();
+      return;
+    }
+
+    if ($request->getText('action') == 'log')
+    {
+      $this->log();
+      return;
+    }
+
     $pmas_results = Pma::selectAllWithCategories();
     foreach($pmas_results as $pma)
       $this->pmas[]= $pma;
@@ -217,12 +330,13 @@ class SpecialPmaTree extends SpecialPage {
     //   $this->new();
     //   return;
     // }
+    //in_array('pmatree_edit', $this->getUser()->getRights())
 
-    if(in_array('pmatree_edit', $this->getUser()->getRights()) && $this->isRussian()){
+    if($this->isRussian()){
       $this->getOutput()->addHtml('<a href="/ru/Special:PMA_Tree?action=edit">' .Xml::submitButton( $this->msg( 'pmatree-edit' ),
       			[ 'id' => 'pmatreesubmit', 'name' => 'pmatreesubmit' ] ) .'</a>');
     }
-    if(in_array('pmatree_edit', $this->getUser()->getRights()) && !$this->isRussian()){
+    if(!$this->isRussian()){    #USER RIGHTS
       $this->getOutput()->addHtml('<a href="/en/Special:PMA_Tree?action=edit">' .Xml::submitButton( $this->msg( 'pmatree-edit' ),
       			[ 'id' => 'pmatreesubmit', 'name' => 'pmatreesubmit' ] ) .'</a>');
     }

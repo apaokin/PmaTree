@@ -5,6 +5,7 @@
 	"pmatree-implementation": "Реализация ",
 	"pmatree-add-implementation": "Добавить реализацию ",
 	"pmatree-edit": "Редактировать",
+	"pmatree-edit-back": "Вернуться к редактору",
 	"pmatree-show": "Вернуться к странице просмотра",
 	"pmatree-success": "Успешно отредактировано",
 	"pmatree-choose-pma": "Выберите объект",
@@ -35,5 +36,9 @@
 	"pmatree-actions-save": "Сохранить",
 	"pmatree-actions-delete": "Удалить",
 	"pmatree-buttons-add": "Новая запись",
-	"right-pmatree_edit": "Редактировать классификацию алгоритмов"
+	"right-pmatree_edit": "Редактировать классификацию алгоритмов",
+	"pmatree-journal": "Журнал изменений",
+	"pmatree-journal-confirm": "Утвердить",
+	"pmatree-journal-deny": "Отклонить",
+	"pmatree-journal-cancel": "Отменить"
 }
