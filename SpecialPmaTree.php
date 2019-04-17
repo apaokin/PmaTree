@@ -2,7 +2,10 @@
 class SpecialPmaTree extends SpecialPage {
   var $dbr;
   var $pmas;
+  var $archs;
   var $output;
+  var $archs_displayed;
+  var $arch_map = array();
   function __construct() {
     parent::__construct( 'PmaTree' );
     $this->mIncludable = true;
@@ -33,13 +36,19 @@ class SpecialPmaTree extends SpecialPage {
     switch ($type_readable) {
         case 'algorithm':
             $output = '[[File:A-chameleon-square-64x64.png|16px|link=Project:Уровни классификации|Уровень алгоритма]]';
-            return $output.'[['. $this->remove_underscores($elem->ru_name).']]';
+            $output.= ' [['. $this->remove_underscores($elem->ru_name).']]';
+            if ($elem->architectures) {
+              foreach (explode(',', $elem->architectures) as $v) {
+                $output.= ' [['. Pma::$architectures[$v]['name'] .']]';
+              }
+            }
+            return $output;
         case 'problem':
             $output = '[[File:З-orange-square-64x64.png|16px|link=Project:Уровни классификации|Уровень задачи]]';
-            return $output.'[['. $this->remove_underscores($elem->ru_name).']]';
+            return $output.' [['. $this->remove_underscores($elem->ru_name).']]';
         case 'method':
             $output = '[[File:M-butter-square-64x64.png|16px|link=Project:Уровни классификации|Уровень метода]]';
-            return $output.'[['. $this->remove_underscores($elem->ru_name).']]';
+            return $output.' [['. $this->remove_underscores($elem->ru_name).']]';
             break;
         case 'implementation':
             return $this->msg('pmatree-implementation').$this->remove_underscores($elem->ru_name);
@@ -61,13 +70,13 @@ class SpecialPmaTree extends SpecialPage {
     switch ($type_readable) {
         case 'algorithm':
             $output = '[[File:A-chameleon-square-64x64.png|16px|link=Project:Levels of classification|Algorithm level]]';
-            return $output.'[['. $this->remove_underscores($elem->en_name).']]';
+            return $output.' [['. $this->remove_underscores($elem->en_name).']]';
         case 'problem':
             $output = '[[File:З-orange-square-64x64.png|16px|link=Project:Levels of classification|Problem level]]';
-            return $output.'[['. $this->remove_underscores($elem->en_name).']]';
+            return $output.' [['. $this->remove_underscores($elem->en_name).']]';
         case 'method':
             $output = '[[File:M-butter-square-64x64.png|16px|link=Project:Levels of classification|Method level]]';
-            return $output.'[['. $this->remove_underscores($elem->en_name).']]';
+            return $output.' [['. $this->remove_underscores($elem->en_name).']]';
             break;
         case 'implementation':
             return $this->msg('pmatree-implementation').$this->remove_underscores($elem->en_name);
@@ -98,22 +107,84 @@ class SpecialPmaTree extends SpecialPage {
     return str_replace("_", " ", $arg);
   }
 
+  function check_architecture($pma) {
+    $count = 0;
+    if (!$pma->architectures){
+      return FALSE;
+    }
+    foreach (explode(',', $pma->architectures) as $v) {
+      if (in_array($v, $this->archs_displayed)) {
+        $count = $count + 1;
+        break;
+      }
+    }
+    if ($count > 0)
+      return TRUE;
+    return FALSE;
+  }
 
   function render_element($pma,$level,$last_without_page = 0,$parent = NULL){
-    if($pma->type == '3'){
-      $this->output.= $this->header($pma,$level);
-      $last_without_page = $level;
-    }
-    elseif($pma->type == '4'){
-      $this->output.= $this->pounds($pma,$level - $last_without_page);
-    }
-    else{
-      $this->output.= $this->pounds($pma,$level - $last_without_page);
-    }
-    if($pma->childs_ids)
-      foreach (explode(',',$pma->childs_ids) as $child_id ) {
-        $this->render_element(Pma::find_or_raise_exception($this->pmas, 'id',$child_id),$level + 1,$last_without_page,$pma);
+    if ($this->archs_displayed == -1) {
+      if($pma->type == '3'){
+        $this->output.= $this->header($pma,$level);
+        $last_without_page = $level;
       }
+      elseif($pma->type == '4') {
+        $this->output.= $this->pounds($pma,$level - $last_without_page);
+      }
+      else {
+        $this->output.= $this->pounds($pma,$level - $last_without_page);
+      }
+      if($pma->childs_ids)
+        foreach (explode(',',$pma->childs_ids) as $child_id ) {
+          $this->render_element(Pma::find_or_raise_exception($this->pmas, 'id',$child_id),$level + 1,$last_without_page,$pma);
+        }
+    }
+    else {
+      if ($this->arch_map[$pma->id]) {
+        if($pma->type == '3'){
+          $this->output.= $this->header($pma,$level);
+          $last_without_page = $level;
+        }
+        elseif($pma->type == '4'){
+          $this->output.= $this->pounds($pma,$level - $last_without_page);
+        }
+        else {
+          $this->output.= $this->pounds($pma,$level - $last_without_page);
+        }
+        if($pma->childs_ids)
+          foreach (explode(',',$pma->childs_ids) as $child_id ) {
+            $this->render_element(Pma::find_or_raise_exception($this->pmas, 'id',$child_id),$level + 1,$last_without_page,$pma);
+          }
+      }
+    }
+  }
+
+  function set_architecture_true($pma) {
+    $this->arch_map[$pma->id] = TRUE;
+    if ($pma->childs_ids) {
+      foreach (explode(',',$pma->childs_ids) as $child_id ) {
+        $this->set_architecture_true(Pma::find_or_raise_exception($this->pmas, 'id',$child_id));
+      }
+    }
+  }
+
+  function architecture_mapping($pma) {
+    $this->arch_map[$pma->id] = $this->check_architecture($pma);
+    if ($pma->childs_ids){
+      if ($this->arch_map[$pma->id]){
+        foreach (explode(',',$pma->childs_ids) as $child_id ) {
+          $this->set_architecture_true(Pma::find_or_raise_exception($this->pmas, 'id',$child_id));
+        }
+      }
+      else {
+        foreach (explode(',',$pma->childs_ids) as $child_id ) {
+          $tmp = $this->architecture_mapping(Pma::find_or_raise_exception($this->pmas, 'id',$child_id));
+          $this->arch_map[$pma->id] = $this->arch_map[$pma->id] || $tmp;
+        }
+      }
+    }
+    return $this->arch_map[$pma->id];
   }
 
   function edit($from_update = 'no'){
@@ -133,6 +204,7 @@ class SpecialPmaTree extends SpecialPage {
     $this-> getOutput()->addHtml('<div id="pma-tree-bottom"></div>');
     $pmas_json =  json_encode($this->pmas);
     $type_maps = json_encode(Pma::$type_maps);
+    $architectures = json_encode($this->archs);
     ob_start();
      include __DIR__ . '/js/bottomForm.js';
      $include = ob_get_contents();
@@ -221,11 +293,19 @@ class SpecialPmaTree extends SpecialPage {
     foreach (['en_short','ru_short','ru_name','en_name','id','type','perform_delete'] as $value)
       $attrs[$value] = $request->getText($value);
     if($request->getText('hidden_parents_ids')){
-      $attrs['parents_ids'] = array_unique(explode(',',$request->getText('hidden_parents_ids')));
+      $attrs['parents_ids'] = explode(',',$request->getText('hidden_parents_ids'));
     }
     else{
       $attrs['parents_ids'] = [];
     }
+
+    if($request->getText('hidden_archs')){
+      $attrs['architectures'] = explode(',',$request->getText('hidden_archs'));
+    }
+    else{
+      $attrs['architectures'] = [];
+    }
+
     if (in_array('pmatree_edit', $this->getUser()->getRights()))
     {
       $res = Pma::update($attrs);
@@ -266,6 +346,8 @@ class SpecialPmaTree extends SpecialPage {
     $pmas_results = Pma::selectAllWithCategories();
     foreach($pmas_results as $pma)
       $this->pmas[]= $pma;
+    foreach(Pma::$architectures as $arc)
+      $this->archs[]= $arc;
     $attrs['ru_name'] = $this->remove_underscores($attrs['ru_name']);
     $attrs['en_name'] = $this->remove_underscores($attrs['en_name']);
     $this->edit(json_encode($attrs));
@@ -322,6 +404,8 @@ class SpecialPmaTree extends SpecialPage {
     $pmas_results = Pma::selectAllWithCategories();
     foreach($pmas_results as $pma)
       $this->pmas[]= $pma;
+    foreach(Pma::$architectures as $arc)
+        $this->archs[]= $arc;
     if ($request->getText('action') == 'edit'){
       $this->edit();
       return;
@@ -341,7 +425,27 @@ class SpecialPmaTree extends SpecialPage {
       			[ 'id' => 'pmatreesubmit', 'name' => 'pmatreesubmit' ] ) .'</a>');
     }
 
+    $architectures = json_encode($this->archs);
+    $this-> getOutput()->addHtml(file_get_contents(__DIR__ . '/js/libraries.html'));
+    $this->getOutput()->addHtml('<div id="architecture_checkbox"></div>');
+    ob_start();
+     include __DIR__ . '/js/architecture_checkbox.js';
+     $include = ob_get_contents();
+    ob_end_clean();
+    $this->getOutput()->addHtml('<script> ' . $include. ' </script>');
+
     $inits = Pma::get_sub_array($this->pmas, 'parents_ids', NULL);
+    if ($request->getText('hidememberinfo') == "all") {
+        $this->archs_displayed = -1;
+    }
+    else {
+      $tmp_archs = $request->getText('hidden_archs');
+      $this->archs_displayed = explode(',', $tmp_archs);
+      foreach($inits as $pma){
+        $this->architecture_mapping($pma);
+      }
+    }
+
     foreach($inits as $pma){
       $this->render_element($pma,1);
     }

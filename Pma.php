@@ -16,6 +16,15 @@ class Pma {
     '5' => 'implementation'
   );
 
+  public static $architectures=array(
+    ['id' => '1', 'name' => 'Architecture_1'],
+    ['id' => '2', 'name' => 'Architecture_2'],
+    ['id' => '3', 'name' => 'Architecture_3'],
+    ['id' => '4', 'name' => 'Architecture_4'],
+    ['id' => '5', 'name' => 'Architecture_5'],
+    ['id' => '6', 'name' => 'Architecture_6']
+  );
+
   public static $pmas=array();
 
 
@@ -96,6 +105,12 @@ class Pma {
       else{
         $value->childs_ids = array();
       }
+      if($value->architectures){
+        $value->architectures = explode(',',$value->architectures);
+      }
+      else{
+        $value->architectures = array();
+      }
       Self::$pmas[]=$value;
     }
     if($attrs['perform_delete'] === 'true'){
@@ -115,12 +130,13 @@ class Pma {
     Self::dbr()->begin();
     Self::dbr()->delete('pma_tree_pma', array('id'=>$attrs['id']));
     Self::dbr()->delete('pma_tree_links', array('child_id'=>$attrs['id']));
+    Self::dbr()->delete('pma_tree_arc', array('el_id'=>$attrs['id']));
     Self::dbr()->commit();
     return true;
   }
 
   public static function save(&$attrs){
-    $attr_names = ['en_short','ru_short','ru_name','en_name','id','type','parents_ids'];
+    $attr_names = ['en_short','ru_short','ru_name','en_name','id','type','parents_ids', 'architectures'];
     $updated = FALSE;
     if($attrs['id'] == 'new'){
       $updated = TRUE;
@@ -129,18 +145,29 @@ class Pma {
       unset($attrs_up['id']);
       unset($attrs_up['parents_ids']);
       unset($attrs_up['perform_delete']);
+      unset($attrs_up['architectures']);
+
       $attrs_up['updated_at'] = date("Y-m-d H:i:s");
       $attrs_up['created_at'] = date("Y-m-d H:i:s");
       Self::dbr()->insert('pma_tree_pma', $attrs_up);
+
       foreach(Self::dbr()->query("SELECT id FROM pma_tree_pma ORDER BY ID DESC LIMIT 1") as $row){
         $id = $row->id;
       }
       $attrs['id'] = $id;
+
       foreach($attrs['parents_ids'] as $par_id ){
         Self::dbr()->insert('pma_tree_links', array('child_id' => $id,'parent_id' => $par_id));
       }
+
+      foreach($attrs['architectures'] as $arc_id ){
+        Self::dbr()->insert('pma_tree_arc', array('el_id' => $id,'arc_id' => $arc_id));
+      }
+
       Self::dbr()->commit();
-    }else{
+
+    }
+    else{
       $pma = Self::find_or_raise_exception(Self::$pmas,'id',$attrs['id']);
       foreach($attr_names as $name){
         if($pma->$name != $attrs[$name]){
@@ -154,6 +181,7 @@ class Pma {
         unset($attrs_up['id']);
         unset($attrs_up['parents_ids']);
         unset($attrs_up['perform_delete']);
+        unset($attrs_up['architectures']);
         $attrs_up['updated_at'] = date("Y-m-d H:i:s");
         Self::dbr()->update('pma_tree_pma', $attrs_up, array('id' => $attrs['id']));
         foreach(array_diff($pma->parents_ids,$attrs['parents_ids']) as $par_id ){
@@ -162,6 +190,13 @@ class Pma {
         foreach(array_diff($attrs['parents_ids'],$pma->parents_ids) as $par_id ){
           Self::dbr()->insert('pma_tree_links', array('child_id' => $attrs['id'],'parent_id' => $par_id));
         }
+        foreach(array_diff($pma->architectures, $attrs['architectures']) as $arc_id ){
+          Self::dbr()->delete('pma_tree_arc', array('el_id' => $attrs['id'],'arc_id' => $arc_id));
+        }
+        foreach(array_diff($attrs['architectures'],$pma->architectures) as $arc_id ){
+          Self::dbr()->insert('pma_tree_arc', array('el_id' => $attrs['id'],'arc_id' => $arc_id));
+        }
+
         Self::dbr()->commit();
       }
     }
@@ -435,19 +470,24 @@ class Pma {
     return Self::dbr()->query("SELECT p.ru_name,p.en_name,p.ru_short,p.en_short,
                                p.type, p.id, p.created_at, p.updated_at,
                                GROUP_CONCAT(DISTINCT pma_links.child_id) AS childs_ids,
-                               GROUP_CONCAT(DISTINCT parent_links.parent_id)  as parents_ids
+                               GROUP_CONCAT(DISTINCT parent_links.parent_id)  as parents_ids,
+                               GROUP_CONCAT(DISTINCT arcs.arc_id)  as architectures
                                FROM pma_tree_pma as p
                                LEFT JOIN pma_tree_links as pma_links ON
                                pma_links.parent_id = p.id
                                LEFT JOIN pma_tree_links as parent_links ON
                                parent_links.child_id = p.id
+                               LEFT JOIN pma_tree_arc as arcs ON
+                               arcs.el_id = p.id
                                GROUP BY id"
                               );
   }
   public static function dbr(){
     return wfGetDB( DB_MASTER,[],'algowiki_ru');
   }
-
+//
+//
+//
   public static function dbrEn(){
     return wfGetDB( DB_SLAVE,[],'algowiki_en' );
   }

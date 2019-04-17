@@ -17,6 +17,7 @@
 	"pmatree-en_name-helper": "Оставьте это поле пустым, если Вы хотите, чтобы оно было заполнено автоматически и если в русскоязычной версии определена ссылка на анлоязычную версию",
 	"pmatree-parents": "Родители",
 	"pmatree-type": "Тип",
+	"pmatree-architecture": "Архитектуры",
 	"pmatree-error-not_without_page_parent": "Родитель обязан тоже быть заголовком",
 	"pmatree-error-null_not_without_page": "Объект, не имеющий ни одной родительской вершины, может быть только заголовком (without_page)",
 	"pmatree-error-cycle": "Один из родителей является потомком данного объекта, что приводит к зацикливанию и недопустимо",
@@ -40,5 +41,9 @@
 	"pmatree-journal": "Журнал изменений",
 	"pmatree-journal-confirm": "Утвердить",
 	"pmatree-journal-deny": "Отклонить",
-	"pmatree-journal-cancel": "Отменить"
+	"pmatree-journal-cancel": "Отменить",
+	"pmatree-architecture-header": "Архитектуры",
+	"pmatree-architecture-all": "Все",
+	"pmatree-architecture-choose": "Выбрать",
+	"pmatree-architecture-selection": "Отбор"
 }

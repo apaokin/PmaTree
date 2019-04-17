@@ -1,4 +1,4 @@
-var pmas,type_maps,attrs,rendered_pmas=[];
+var pmas, type_maps, attrs, rendered_pmas=[], archs, rendered_archs=[];
 
 function updated(){
   return attrs.a != 'new';
@@ -38,9 +38,13 @@ function get_sub_array(array, field, searched_value)
 }
 pmas = <?php echo $pmas_json?>;
 type_maps = <?php echo $type_maps?>;
+archs = <?php echo $architectures?>;
 var inits = get_sub_array(pmas, 'parents_ids', null);
 inits.forEach(function(element) {
   render_element(element,0);
+});
+archs.forEach(function(element) {
+  render_architecture(element);
 });
 
 function get_sub_array_empty(array)

@@ -52,10 +52,16 @@ function renderForm(id){
             {
               enum: [0,1,2,3,4,5]
             },
+            "architectures":
+            {
+              enum: rendered_archs.map(function(e){ return e.id;})
+            },
 						"parents_ids":{
               enum: rendered_pmas.map(function(e){ return e.id;})
 						},
             "hidden_parents_ids":{
+            },
+            "hidden_archs":{
             }
 
 					}
@@ -86,17 +92,46 @@ function renderForm(id){
                          var new_ids = bottomForm.getControlByPath('parents_ids').getValue().map(function(elem){
                            return elem.value;
                          }).join(',');
+                         if (Array.isArray(bottomForm.getControlByPath('architectures').getValue())){
+                           var new_archs = bottomForm.getControlByPath('architectures').getValue().map(function(elem){
+                             return elem.value;
+                           }).join(',');
+                           bottomForm.getControlByPath('hidden_archs').setValue(new_archs);
+                         }
+                         else {
+                           var str = JSON.stringify(bottomForm.getControlByPath('architectures').getValue(), null, "  ")
+                           str = str.substr(1, str.length - 2);
+                           var new_archs = str.split(" ");
+                           new_archs.map(function(elem){ return {"value": elem, "text": elem}; });
+                           bottomForm.getControlByPath('hidden_archs').setValue(new_archs);
+                         }
                          bottomForm.getControlByPath('hidden_parents_ids').setValue(new_ids);
                          bottomForm.getControlByPath('perform_delete').setValue('false');
                          this.submit();
                          return;
                       }
+                  },
+
+                  "view": {
+                    "label": "View JSON",
+                    "click": function() {
+                        alert(JSON.stringify(bottomForm.getControlByPath('architectures').getValue(), null, "  "));
+                    }
+                },
+                "view2": {
+                  "label": "View JSON2",
+                  "click": function() {
+                      alert(JSON.stringify(bottomForm.getControlByPath('parents_ids').getValue(), null, "  "));
                   }
+              }
           }
       },
         "hideInitValidationError":true,
 				"fields":{
           "hidden_parents_ids":{
+            type: 'hidden'
+          },
+          "hidden_archs": {
             type: 'hidden'
           },
           "perform_delete":{
@@ -189,12 +224,21 @@ function renderForm(id){
               if(!errors)
                 callback({status:true});
             }
+          },
+          "architectures": {
+            hideNone: true,
+            label: "<?php echo $this->msg('pmatree-architecture')?>",
+            optionLabels: rendered_archs.map(function(e){ return e.text;}),
+            "sort": false,
+            multiple: true,
+            "readonly": "<?php echo $rights?>"
           }
 				}
 			},
 			"postRender": function(control) {
         control.getControlByPath('parents_ids').getControlEl().select2();
         control.getControlByPath('type').getControlEl().select2();
+        control.getControlByPath('architectures').getControlEl().select2();
         control.getControlByPath('type').getControlEl().trigger("change");
         bottomForm = $("#pma-tree-bottom").alpaca('get');
 			}
@@ -232,6 +276,12 @@ function render_element(pma,level,parent = null){
   else{
     pma['childs_ids'] = [];
   }
+}
+
+var rendered_archs = [];
+function render_architecture(arch)
+{
+  rendered_archs.push( {id: arch['id'], text: arch['name']});
 }
 
 function find_children_with_id(elem, id){

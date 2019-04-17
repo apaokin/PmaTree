@@ -125,8 +125,8 @@ $(document).ready(function(){
                   "label": "<?php echo $this->msg('pmatree-journal-confirm')?>",
                   "click": function() {
                     var str;
-                    str = JSON.stringify(this.getValue(), null, "  ");
-                    if (str == "{}")
+                    str = JSON.stringify(journalForm.getControlByPath('ID_checkbox').getValue(), null, "  ");
+                    if (str === '\"\"')
                       return;
                     this.validate(true);
                     this.refreshValidationState(true);
@@ -134,7 +134,7 @@ $(document).ready(function(){
                         empty_preview();
                         return;
                     }
-                    str = str.substr(20, str.length - 23);
+                    str = str.substr(1, str.length - 2);
                     journalForm.getControlByPath('selection').setValue(str);
                     journalForm.getControlByPath('type_of_change').setValue("confirm");
                     this.submit();
@@ -144,8 +144,8 @@ $(document).ready(function(){
                   "label": "<?php echo $this->msg('pmatree-journal-deny')?>",
                   "click": function() {
                     var str;
-                    str = JSON.stringify(this.getValue(), null, "  ");
-                    if (str == "{}")
+                    str = JSON.stringify(journalForm.getControlByPath('ID_checkbox').getValue(), null, "  ");
+                    if (str === '\"\"')
                       return;
                     this.validate(true);
                     this.refreshValidationState(true);
@@ -153,7 +153,7 @@ $(document).ready(function(){
                         empty_preview();
                         return;
                     }
-                    str = str.substr(20, str.length - 23);
+                    str = str.substr(1, str.length - 2);
                     journalForm.getControlByPath('selection').setValue(str);
                     journalForm.getControlByPath('type_of_change').setValue("deny");
                     this.submit();
@@ -207,8 +207,8 @@ $(document).ready(function(){
                   "label": "<?php echo $this->msg('pmatree-journal-cancel')?>",
                   "click": function() {
                     var str;
-                    str = JSON.stringify(this.getValue(), null, "  ");
-                    if (str == "{}")
+                    str = JSON.stringify(journalForm.getControlByPath('ID_checkbox').getValue(), null, "  ");
+                    if (str === '\"\"')
                       return;
                     this.validate(true);
                     this.refreshValidationState(true);
@@ -216,7 +216,7 @@ $(document).ready(function(){
                         empty_preview();
                         return;
                     }
-                    str = str.substr(20, str.length - 23);
+                    str = str.substr(1, str.length - 2);
                     journalForm.getControlByPath('selection').setValue(str);
                     journalForm.getControlByPath('type_of_change').setValue("cancel");
                     this.submit();
