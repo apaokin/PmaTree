@@ -44,6 +44,7 @@
 	"pmatree-journal-confirm": "Confirm",
 	"pmatree-journal-deny": "Deny",
 	"pmatree-journal-cancel": "Cancel",
+	"pmatree-journal-empty_list": "There are no any new changes",
 	"pmatree-architecture-header": "Architectures",
 	"pmatree-architecture-all": "All",
 	"pmatree-architecture-choose": "Choose",

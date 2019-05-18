@@ -8,13 +8,15 @@ table.log_table {
 .log_table th {
   border: 2px solid #BB9977;
   background-color: #EADAC5;
-  text-indent: 1vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
   height: 30px;
 }
 
 .log_table td {
   border: 2px solid #BB9977;
-  text-indent: 1vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
   height: fit-content;
 }
 
@@ -44,4 +46,13 @@ table.log_table {
 
 #change_log .invisible_form {
   display: none;
+}
+
+#change_log .empty_list_message {
+  margin-top: 8vh;
+  margin-bottom: 8vh;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
 }

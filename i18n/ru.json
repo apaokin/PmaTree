@@ -43,6 +43,7 @@
 	"pmatree-journal-confirm": "Утвердить",
 	"pmatree-journal-deny": "Отклонить",
 	"pmatree-journal-cancel": "Отменить",
+	"pmatree-journal-empty_list": "Отсутствуют новые изменения",
 	"pmatree-architecture-header": "Архитектуры",
 	"pmatree-architecture-all": "Все",
 	"pmatree-architecture-choose": "Выбрать",

@@ -75,6 +75,14 @@ $(document).ready(function() {
 //======== ACTIONS ========
 //=========================
 
+  if (els.length == 0) {
+    $('#new_log_table').css('display', 'none');
+    $('<p/>', {
+      class: 'empty_list_message',
+      text: "<?php echo $this->msg('pmatree-journal-empty_list')?>"
+    }).prependTo('#change_log');
+  }
+
   document.change_log.setAttribute('action', window.location.href.replace(/journal/,'log'));
 
   $('<link/>', {
@@ -140,10 +148,14 @@ $(document).ready(function() {
   })
 
   $('#confirm_button').click(function() {
+    if (els.length == 0)
+      return;
     var str = '';
     $('.log_table_row_clicked').each(function() {
       str = str + $(this).attr('value') + ',';
     });
+    if (str == '')
+      return;
     str = str.substr(0, str.length - 1);
     $('#log_form_selection').val(str);
     $('#log_form_type_of_change').val('confirm');
@@ -151,10 +163,14 @@ $(document).ready(function() {
   })
 
   $('#deny_button').click(function() {
+    if (els.length == 0)
+      return;
     var str = '';
     $('.log_table_row_clicked').each(function() {
       str = str + $(this).attr('value') + ',';
     });
+    if (str == '')
+      return;
     str = str.substr(0, str.length - 1);
     $('#log_form_selection').val(str);
     $('#log_form_type_of_change').val('deny');
@@ -162,10 +178,14 @@ $(document).ready(function() {
   })
 
   $('#cancel_button').click(function() {
+    if (els.length == 0)
+      return;
     var str = '';
     $('.log_table_row_clicked').each(function() {
       str = str + $(this).attr('value') + ',';
     });
+    if (str == '')
+      return;
     str = str.substr(0, str.length - 1);
     $('#log_form_selection').val(str);
     $('#log_form_type_of_change').val('cancel');
