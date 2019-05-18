@@ -1,6 +1,8 @@
 function renderForm(id){
   var bottomForm;
   var data;
+  var arc_field;
+  var firstRender = false;
   if(updated() && attrs['id'] == id ){
     data = attrs;
   }
@@ -110,20 +112,7 @@ function renderForm(id){
                          this.submit();
                          return;
                       }
-                  },
-
-                  "view": {
-                    "label": "View JSON",
-                    "click": function() {
-                        alert(JSON.stringify(bottomForm.getControlByPath('architectures').getValue(), null, "  "));
-                    }
-                },
-                "view2": {
-                  "label": "View JSON2",
-                  "click": function() {
-                      alert(JSON.stringify(bottomForm.getControlByPath('parents_ids').getValue(), null, "  "));
                   }
-              }
           }
       },
         "hideInitValidationError":true,
@@ -231,7 +220,19 @@ function renderForm(id){
             optionLabels: rendered_archs.map(function(e){ return e.text;}),
             "sort": false,
             multiple: true,
-            "readonly": "<?php echo $rights?>"
+            "readonly": "<?php echo $rights?>",
+            validator: function(callback){
+              var errors = false;
+              if(bottomForm.getControlByPath('type').getValue() != type_maps.indexOf('algorithm') && this.getValue().length) {
+                callback({status:false,
+                          message: "<?php echo $this->msg('pmatree-error-architecture_for_algorithm')?>"
+                        });
+                errors = true;
+                return;
+              }
+              if(!errors)
+                callback({status:true});
+            }
           }
 				}
 			},

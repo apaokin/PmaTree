@@ -34,29 +34,28 @@ class SpecialPmaTree extends SpecialPage {
     $type_readable = Pma::$type_maps[$elem->type];
     $output;
     switch ($type_readable) {
-        case 'algorithm':
-            $output = '[[File:A-chameleon-square-64x64.png|16px|link=Project:Уровни классификации|Уровень алгоритма]]';
-            $output.= ' [['. $this->remove_underscores($elem->ru_name).']]';
-            if ($elem->architectures) {
-              foreach (explode(',', $elem->architectures) as $v) {
-                $output.= ' [['. Pma::$architectures[$v]['name'] .']]';
-              }
+      case 'algorithm':
+          $output = '[[File:A-chameleon-square-64x64.png|16px|link=Project:Уровни классификации|Уровень алгоритма]]';
+          $output.= ' [['. $this->remove_underscores($elem->ru_name).']]';
+          if ($elem->architectures) {
+            foreach (explode(',', $elem->architectures) as $v) {
+              $output.= ' [['. Pma::$architectures[$v - 1]['name'] .']]';
             }
-            return $output;
-        case 'problem':
-            $output = '[[File:З-orange-square-64x64.png|16px|link=Project:Уровни классификации|Уровень задачи]]';
-            return $output.' [['. $this->remove_underscores($elem->ru_name).']]';
-        case 'method':
-            $output = '[[File:M-butter-square-64x64.png|16px|link=Project:Уровни классификации|Уровень метода]]';
-            return $output.' [['. $this->remove_underscores($elem->ru_name).']]';
-            break;
-        case 'implementation':
-            return $this->msg('pmatree-implementation').$this->remove_underscores($elem->ru_name);
-        case 'without_page':
-            return $this->remove_underscores($elem->ru_name);
-        case 'without_page_and_header':
-            return $this->remove_underscores($elem->ru_name);
-
+          }
+          return $output;
+      case 'problem':
+          $output = '[[File:З-orange-square-64x64.png|16px|link=Project:Уровни классификации|Уровень задачи]]';
+          return $output.' [['. $this->remove_underscores($elem->ru_name).']]';
+      case 'method':
+          $output = '[[File:M-butter-square-64x64.png|16px|link=Project:Уровни классификации|Уровень метода]]';
+          return $output.' [['. $this->remove_underscores($elem->ru_name).']]';
+          break;
+      case 'implementation':
+          return $this->msg('pmatree-implementation').$this->remove_underscores($elem->ru_name);
+      case 'without_page':
+          return $this->remove_underscores($elem->ru_name);
+      case 'without_page_and_header':
+          return $this->remove_underscores($elem->ru_name);
     }
   }
 
@@ -68,23 +67,28 @@ class SpecialPmaTree extends SpecialPage {
     $type_readable = Pma::$type_maps[$elem->type];
     $output;
     switch ($type_readable) {
-        case 'algorithm':
-            $output = '[[File:A-chameleon-square-64x64.png|16px|link=Project:Levels of classification|Algorithm level]]';
-            return $output.' [['. $this->remove_underscores($elem->en_name).']]';
-        case 'problem':
-            $output = '[[File:З-orange-square-64x64.png|16px|link=Project:Levels of classification|Problem level]]';
-            return $output.' [['. $this->remove_underscores($elem->en_name).']]';
-        case 'method':
-            $output = '[[File:M-butter-square-64x64.png|16px|link=Project:Levels of classification|Method level]]';
-            return $output.' [['. $this->remove_underscores($elem->en_name).']]';
-            break;
-        case 'implementation':
-            return $this->msg('pmatree-implementation').$this->remove_underscores($elem->en_name);
-        case 'without_page':
-            return $this->remove_underscores($elem->en_name);
-        case 'without_page_and_header':
-            return $this->remove_underscores($elem->en_name);
-
+      case 'algorithm':
+          $output = '[[File:A-chameleon-square-64x64.png|16px|link=Project:Уровни классификации|Уровень алгоритма]]';
+          $output.= ' [['. $this->remove_underscores($elem->en_name).']]';
+          if ($elem->architectures) {
+            foreach (explode(',', $elem->architectures) as $v) {
+              $output.= ' [['. Pma::$architectures[$v - 1]['name'] .']]';
+            }
+          }
+          return $output;
+      case 'problem':
+          $output = '[[File:З-orange-square-64x64.png|16px|link=Project:Levels of classification|Problem level]]';
+          return $output.' [['. $this->remove_underscores($elem->en_name).']]';
+      case 'method':
+          $output = '[[File:M-butter-square-64x64.png|16px|link=Project:Levels of classification|Method level]]';
+          return $output.' [['. $this->remove_underscores($elem->en_name).']]';
+          break;
+      case 'implementation':
+          return $this->msg('pmatree-implementation').$this->remove_underscores($elem->en_name);
+      case 'without_page':
+          return $this->remove_underscores($elem->en_name);
+      case 'without_page_and_header':
+          return $this->remove_underscores($elem->en_name);
     }
   }
 
@@ -245,14 +249,17 @@ class SpecialPmaTree extends SpecialPage {
     $changes = array();
     foreach ($tmparr as $val)
       $changes[] = $val;
-    $ta_json = json_encode($changes);
+    $changes_json = json_encode($changes);
     $lang = 1;
     if ($this->isRussian())
       $lang = 0;
     $this->getOutput()->addHtml(file_get_contents(__DIR__ . '/js/libraries.html'));
-    $this->getOutput()->addHtml('<div id="log_table"></div>');
+    if ($rights == 1)
+      $this->getOutput()->addHtml(file_get_contents(__DIR__ . '/js/log_table_admin.html'));
+    else
+      $this->getOutput()->addHtml(file_get_contents(__DIR__ . '/js/log_table_user.html'));
     ob_start();
-     include __DIR__ . '/js/journal.js';
+     include __DIR__ . '/js/log_table.js';
      $include = ob_get_contents();
     ob_end_clean();
     $this->getOutput()->addHtml('<script> ' . $include. ' </script>');
@@ -278,9 +285,9 @@ class SpecialPmaTree extends SpecialPage {
   function log()
   {
     $request = $this->getRequest();
-    $ind = $request->getText('selection');
+    $ind = $request->getText('log_form_selection');
     $indexes = explode(',', $ind);
-    $typeofchange = $request->getText('type_of_change');
+    $typeofchange = $request->getText('log_form_type_of_change');
     foreach ($indexes as $i) {
       Pma::changeLog($i, $typeofchange);
     }
@@ -358,12 +365,18 @@ class SpecialPmaTree extends SpecialPage {
     $request = $this->getRequest();
     $this->setHeaders();
     if($request->getText('action')){
+      if ($this->getUser()->isLoggedIn()) {
         if ($this->isRussian()){
           $this->getOutput()->addHtml('<a href="/ru/Special:PMA_Tree">' .Xml::submitButton( $this->msg( 'pmatree-show' )).'</a>');
         }
         else {
           $this->getOutput()->addHtml('<a href="/en/Special:PMA_Tree">' .Xml::submitButton( $this->msg( 'pmatree-show' )).'</a>');
         }
+      }
+      else {
+        $this->displayRestrictionError();
+		    return;
+      }
     }
 
     if ($request->getText('action') == 'update' || $request->getText('action') == 'edit'){
@@ -416,13 +429,15 @@ class SpecialPmaTree extends SpecialPage {
     // }
     //in_array('pmatree_edit', $this->getUser()->getRights())
 
-    if($this->isRussian()){
-      $this->getOutput()->addHtml('<a href="/ru/Special:PMA_Tree?action=edit">' .Xml::submitButton( $this->msg( 'pmatree-edit' ),
-      			[ 'id' => 'pmatreesubmit', 'name' => 'pmatreesubmit' ] ) .'</a>');
-    }
-    if(!$this->isRussian()){    #USER RIGHTS
-      $this->getOutput()->addHtml('<a href="/en/Special:PMA_Tree?action=edit">' .Xml::submitButton( $this->msg( 'pmatree-edit' ),
-      			[ 'id' => 'pmatreesubmit', 'name' => 'pmatreesubmit' ] ) .'</a>');
+    if ($this->getUser()->isLoggedIn()) {
+      if($this->isRussian()){
+        $this->getOutput()->addHtml('<a href="/ru/Special:PMA_Tree?action=edit">' .Xml::submitButton( $this->msg( 'pmatree-edit' ),
+        			[ 'id' => 'pmatreesubmit', 'name' => 'pmatreesubmit' ] ) .'</a>');
+      }
+      else {
+        $this->getOutput()->addHtml('<a href="/en/Special:PMA_Tree?action=edit">' .Xml::submitButton( $this->msg( 'pmatree-edit' ),
+        			[ 'id' => 'pmatreesubmit', 'name' => 'pmatreesubmit' ] ) .'</a>');
+      }
     }
 
     $architectures = json_encode($this->archs);
@@ -435,15 +450,16 @@ class SpecialPmaTree extends SpecialPage {
     $this->getOutput()->addHtml('<script> ' . $include. ' </script>');
 
     $inits = Pma::get_sub_array($this->pmas, 'parents_ids', NULL);
-    if ($request->getText('hidememberinfo') == "all") {
-        $this->archs_displayed = -1;
+    //echo $request->getText('hidememberinfo');
+    if ($request->getText('hidememberinfo') == "several") {
+        $tmp_archs = $request->getText('hidden_archs');
+        $this->archs_displayed = explode(',', $tmp_archs);
+        foreach($inits as $pma){
+          $this->architecture_mapping($pma);
+        }
     }
     else {
-      $tmp_archs = $request->getText('hidden_archs');
-      $this->archs_displayed = explode(',', $tmp_archs);
-      foreach($inits as $pma){
-        $this->architecture_mapping($pma);
-      }
+      $this->archs_displayed = -1;
     }
 
     foreach($inits as $pma){

@@ -34,6 +34,7 @@
 	"pmatree-error-children": "Нельзя удалить запись с существующими сыновьями",
 	"pmatree-error-new_delete": "Нельзя удалить новую запись",
 	"pmatree-error-hierarchy": "Один из родителей-заголовков содержит подразделы. В качестве родителя должен быть указан подраздел",
+	"pmatree-error-architecture_for_algorithm": "Назначить архитектуры можно только алгоритму",
 	"pmatree-actions-save": "Сохранить",
 	"pmatree-actions-delete": "Удалить",
 	"pmatree-buttons-add": "Новая запись",

@@ -1,0 +1,47 @@
+table.log_table {
+  margin-top: 8vh;
+  margin-bottom: 8vh;
+  border: 3px solid #BB9977;
+  border-radius: 10px;
+}
+
+.log_table th {
+  border: 2px solid #BB9977;
+  background-color: #EADAC5;
+  text-indent: 1vw;
+  height: 30px;
+}
+
+.log_table td {
+  border: 2px solid #BB9977;
+  text-indent: 1vw;
+  height: fit-content;
+}
+
+.log_table .log_table_cell_user {
+  width: 15%;
+}
+
+.log_table .log_table_cell_action {
+  width: 15%;
+}
+
+.log_table .log_table_cell_article {
+  width: 35%;
+}
+
+.log_table .log_table_cell_parent {
+  width: 35%;
+}
+
+.log_table .log_table_cell_state {
+  width: 15%;
+}
+
+.log_table .log_table_row_clicked {
+  background-color: #C8B396;
+}
+
+#change_log .invisible_form {
+  display: none;
+}

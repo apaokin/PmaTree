@@ -35,6 +35,7 @@
 	"pmatree-error-children": "Cannot delete a record with existing descendants",
 	"pmatree-error-new_delete": "Cannot delete a new record",
 	"pmatree-error-hierarchy": "One of the parent headers contains subsections. A subsection must be specified as a parent",
+	"pmatree-error-architecture_for_algorithm": "Architectures may be assigned only for Algorithm",
 	"pmatree-actions-save": "Save",
 	"pmatree-actions-delete": "Delete",
 	"pmatree-buttons-add": "New record",

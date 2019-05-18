@@ -17,12 +17,10 @@ class Pma {
   );
 
   public static $architectures=array(
-    ['id' => '1', 'name' => 'Architecture_1'],
-    ['id' => '2', 'name' => 'Architecture_2'],
-    ['id' => '3', 'name' => 'Architecture_3'],
-    ['id' => '4', 'name' => 'Architecture_4'],
-    ['id' => '5', 'name' => 'Architecture_5'],
-    ['id' => '6', 'name' => 'Architecture_6']
+    ['id' => '1', 'name' => 'SMP'],
+    ['id' => '2', 'name' => 'VEC'],
+    ['id' => '3', 'name' => 'MPP'],
+    ['id' => '4', 'name' => 'GPU']
   );
 
   public static $pmas=array();
@@ -485,9 +483,7 @@ class Pma {
   public static function dbr(){
     return wfGetDB( DB_MASTER,[],'algowiki_ru');
   }
-//
-//
-//
+
   public static function dbrEn(){
     return wfGetDB( DB_SLAVE,[],'algowiki_en' );
   }

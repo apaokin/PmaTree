@@ -88,7 +88,7 @@ $(document).ready(function(){
                        archForm.getControlByPath('hidden_archs').setValue(new_archs);
                      }*/
                      //else {
-                       var str = JSON.stringify(archForm.getControlByPath('level').getValue(), null, "  ")
+                       var str = JSON.stringify(archForm.getControlByPath('level').getValue(), null, "  ");
                        str = str.substr(1, str.length - 2);
                        //var new_archs = str.split(" ");
                        //new_archs.map(function(elem){ return {"value": elem, "text": elem}; });
@@ -97,15 +97,7 @@ $(document).ready(function(){
                      this.submit();
                      return;
                   }
-              },
-
-              "view": {
-                "label": "View JSON",
-                "click": function() {
-                    alert(JSON.stringify(archForm.getControlByPath('hidememberinfo').getValue(), null, "  "));
-                }
               }
-
             }
           }
         },
