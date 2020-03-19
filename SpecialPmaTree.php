@@ -466,7 +466,7 @@ class SpecialPmaTree extends SpecialPage {
       $this->render_element($pma,1);
     }
 
-    $this-> getOutput()->addWikiText($this->output);
+    $this-> getOutput()->addWikiTextAsContent($this->output);
 
     $this->getOutput()->addHtml('<script type="text/javascript" src="js/jquery.js"></script>');
     if ($this->isRussian()){
