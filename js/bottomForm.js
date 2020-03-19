@@ -1,6 +1,8 @@
 function renderForm(id){
   var bottomForm;
   var data;
+  var arc_field;
+  var firstRender = false;
   if(updated() && attrs['id'] == id ){
     data = attrs;
   }
@@ -52,10 +54,16 @@ function renderForm(id){
             {
               enum: [0,1,2,3,4,5]
             },
+            "architectures":
+            {
+              enum: rendered_archs.map(function(e){ return e.id;})
+            },
 						"parents_ids":{
               enum: rendered_pmas.map(function(e){ return e.id;})
 						},
             "hidden_parents_ids":{
+            },
+            "hidden_archs":{
             }
 
 					}
@@ -86,6 +94,19 @@ function renderForm(id){
                          var new_ids = bottomForm.getControlByPath('parents_ids').getValue().map(function(elem){
                            return elem.value;
                          }).join(',');
+                         if (Array.isArray(bottomForm.getControlByPath('architectures').getValue())){
+                           var new_archs = bottomForm.getControlByPath('architectures').getValue().map(function(elem){
+                             return elem.value;
+                           }).join(',');
+                           bottomForm.getControlByPath('hidden_archs').setValue(new_archs);
+                         }
+                         else {
+                           var str = JSON.stringify(bottomForm.getControlByPath('architectures').getValue(), null, "  ")
+                           str = str.substr(1, str.length - 2);
+                           var new_archs = str.split(" ");
+                           new_archs.map(function(elem){ return {"value": elem, "text": elem}; });
+                           bottomForm.getControlByPath('hidden_archs').setValue(new_archs);
+                         }
                          bottomForm.getControlByPath('hidden_parents_ids').setValue(new_ids);
                          bottomForm.getControlByPath('perform_delete').setValue('false');
                          this.submit();
@@ -99,12 +120,16 @@ function renderForm(id){
           "hidden_parents_ids":{
             type: 'hidden'
           },
+          "hidden_archs": {
+            type: 'hidden'
+          },
           "perform_delete":{
             type: 'hidden'
           },
           "ru_name":{
 						label: "<?php echo $this->msg('pmatree-ru_name')?>",
 						helper: "<?php echo $this->msg('pmatree-ru_name-helper')?>",
+            "readonly": "<?php echo $rights?>",
             validator: function(callback){
               if(bottomForm.getControlByPath('ru_name').getValue() == '' && bottomForm.getControlByPath('en_name').getValue() == ''){
                 callback({
@@ -121,6 +146,7 @@ function renderForm(id){
 					"en_name":{
 						label: "<?php echo $this->msg('pmatree-en_name')?>",
 						helper: "<?php echo $this->msg('pmatree-en_name-helper')?>",
+            "readonly": "<?php echo $rights?>",
             validator: function(callback){
               if(bottomForm.getControlByPath('ru_name').getValue() == '' && bottomForm.getControlByPath('en_name').getValue() == ''){
                 callback({
@@ -136,9 +162,11 @@ function renderForm(id){
 					},
           "ru_short":{
             label: "<?php echo $this->msg('pmatree-ru_short')?>",
+            "readonly": "<?php echo $rights?>",
           },
           "en_short":{
             label: "<?php echo $this->msg('pmatree-en_short')?>",
+            "readonly": "<?php echo $rights?>",
           },
           "id":{
             type: 'hidden'
@@ -159,6 +187,7 @@ function renderForm(id){
             label: "<?php echo $this->msg('pmatree-type')?>",
             optionLabels: type_maps,
             "sort": false,
+            "readonly": "<?php echo $rights?>",
             // validate: false,
             validator: function(callback){
               if(!bottomForm.getControlByPath('parents_ids').getValue().length && this.getValue() != type_maps.indexOf('without_page')){
@@ -184,12 +213,33 @@ function renderForm(id){
               if(!errors)
                 callback({status:true});
             }
+          },
+          "architectures": {
+            hideNone: true,
+            label: "<?php echo $this->msg('pmatree-architecture')?>",
+            optionLabels: rendered_archs.map(function(e){ return e.text;}),
+            "sort": false,
+            multiple: true,
+            "readonly": "<?php echo $rights?>",
+            validator: function(callback){
+              var errors = false;
+              if(bottomForm.getControlByPath('type').getValue() != type_maps.indexOf('algorithm') && this.getValue().length) {
+                callback({status:false,
+                          message: "<?php echo $this->msg('pmatree-error-architecture_for_algorithm')?>"
+                        });
+                errors = true;
+                return;
+              }
+              if(!errors)
+                callback({status:true});
+            }
           }
 				}
 			},
 			"postRender": function(control) {
         control.getControlByPath('parents_ids').getControlEl().select2();
         control.getControlByPath('type').getControlEl().select2();
+        control.getControlByPath('architectures').getControlEl().select2();
         control.getControlByPath('type').getControlEl().trigger("change");
         bottomForm = $("#pma-tree-bottom").alpaca('get');
 			}
@@ -227,6 +277,12 @@ function render_element(pma,level,parent = null){
   else{
     pma['childs_ids'] = [];
   }
+}
+
+var rendered_archs = [];
+function render_architecture(arch)
+{
+  rendered_archs.push( {id: arch['id'], text: arch['name']});
 }
 
 function find_children_with_id(elem, id){

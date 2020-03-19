@@ -10,6 +10,10 @@ class PmaTreeHooks{
   		__DIR__ . '/sql/pma_tree_pma_create_table.sql' );
     $updater->addExtensionTable( 'pma_tree_links',
   		__DIR__ . '/sql/pma_tree_links_create_table.sql' );
+    $updater->addExtensionTable( 'pma_tree_log',
+    	__DIR__ . '/sql/pma_tree_log_create_table.sql' );
+    $updater->addExtensionTable( 'pma_tree_arc',
+      __DIR__ . '/sql/pma_tree_arc_create_table.sql' );
     return true;
   }
 
