@@ -8,7 +8,7 @@ class PmaUpdater extends Maintenance {
   }
 
   public static function dbrEn(){
-    return wfGetDB( DB_SLAVE,[],'algowiki_en' );
+    return wfGetDB( DB_REPLICA,[],'algowiki_en' );
   }
 
   public function addUndescores($arg) {
