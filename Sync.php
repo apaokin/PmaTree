@@ -8,7 +8,7 @@ class Sync {
   }
 
   public static function dbrEn(){
-    return wfGetDB( DB_SLAVE,[],'algowiki_en' );
+    return wfGetDB( DB_REPLICA,[],'algowiki_en' );
   }
 
   public static function truncateTable() {
